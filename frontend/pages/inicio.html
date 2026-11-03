@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/pages/inicio.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Gestión TI</h2>
+            <p>Dispositivos tecnológicos</p>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="inicio.html" class="menu-item active">Inicio</a>
+            <a href="usuarios.html" class="menu-item" data-roles="Administrador">Usuarios</a>
+            <a href="docentes.html" class="menu-item" data-roles="Administrador">Docentes</a>
+            <a href="estudiantes.html" class="menu-item" data-roles="Administrador">Estudiantes</a>
+            <a href="dispositivos.html" class="menu-item" data-roles="Administrador,Técnico">Dispositivos</a>
+            <a href="asignaciones.html" class="menu-item" data-roles="Administrador,Técnico,Docente">Asignaciones</a>
+            <a href="solicitudes.html" class="menu-item" data-roles="Administrador,Técnico,Estudiante">Solicitudes</a>
+            <a href="entregas.html" class="menu-item" data-roles="Administrador,Técnico">Entregas</a>
+            <a href="devoluciones.html" class="menu-item" data-roles="Administrador,Técnico">Devoluciones</a>
+            <a href="historial.html" class="menu-item" data-roles="Administrador,Técnico,Docente">Historial</a>
+            <a href="reportes.html" class="menu-item" data-roles="Administrador,Técnico">Reportes</a>
+</nav>
+        <div class="sidebar-footer">
+            <button class="btn-secondary" id="btnCerrarSesion">Cerrar sesión</button>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+        <header class="navbar">
+            <div class="navbar-title">
+                <h2>Panel principal</h2>
+            </div>
+            <div class="navbar-user">
+                <span id="nombreUsuario">Usuario</span>
+                <span class="user-role" id="rolUsuario">Rol</span>
+            </div>
+
+        </header>
+
+        <section class="dashboard">
+            <div class="welcome-section">
+                <h1>Bienvenido al sistema</h1>
+                <p> Gestión y control de dispositivos tecnológicos de la carrera de Tecnologías de la Información. </p>
+            </div>
+            <section class="dashboard-cards">
+                <article class="dashboard-card">
+                    <h3>Dispositivos</h3>
+                    <p class="card-number">0</p>
+                    <span>Total registrados</span>
+                </article>
+                <article class="dashboard-card">
+                    <h3>Asignaciones</h3>
+                    <p class="card-number">0</p>
+                    <span>Asignaciones realizadas</span>
+                </article>
+                <article class="dashboard-card">
+                    <h3>Solicitudes</h3>
+                    <p class="card-number">0</p>
+                    <span>Solicitudes pendientes</span>
+                </article>
+                <article class="dashboard-card">
+                    <h3>Usuarios</h3>
+                    <p class="card-number">0</p>
+                    <span>Usuarios registrados</span>
+                </article>
+            </section>
+            <section class="dashboard-information">
+                <h2>Información del sistema</h2>
+                <p>Desde este panel podrá acceder a los módulos disponibles para la gestión de dispositivos tecnológicos. </p>
+            </section>
+        </section>
+    </main>
+        <script src="../js/inicio.js"></script>
+</body>
+</html>

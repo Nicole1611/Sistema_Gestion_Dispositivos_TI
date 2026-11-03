@@ -1,0 +1,41 @@
+/* Botón principal */
+.btn-primary {
+    background-color: #176B52;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #125640;
+}
+
+/* Botón de inicio de sesión */
+.btn-login {
+    width: 100%;
+    padding: 13px;
+    font-size: 16px;
+}
+
+/* Botón secundario */
+.btn-secondary {
+    background-color: #E8EEF5;
+    color: #26364A;
+    border: 1px solid #DCE3EA;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Botón eliminar */
+.btn-danger {
+    background-color: #DC3545;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}

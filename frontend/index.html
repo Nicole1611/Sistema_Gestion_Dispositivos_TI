@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="css/global/global.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/pages/login.css">
+</head>
+
+<body>
+    <main class="login-container">
+        <form id="loginForm">
+            <h1 class="login-title">Iniciar sesión</h1>
+            <div class="form-group">
+                <label class="form-label" for="correoInstitucional">Correo institucional</label>
+                <input class="form-input" type="email" id="correoInstitucional" name="correoInstitucional" placeholder="Ingrese su correo institucional" required>
+
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="contrasena">Contraseña</label>
+                <input class="form-input" type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"  required>
+            </div>
+            <button class="btn-primary btn-login" type="submit"> Iniciar sesión</button>
+        </form>
+    </main>
+    <script src="js/login.js"></script>
+</body>
+</html>
