@@ -1,0 +1,38 @@
+/* Fondo */
+body {
+    min-height: 100vh;
+    background-image: url("../../img/login.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Contenedor */
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.20);
+}
+
+/* Título */
+.login-title {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #26364A;
+}
+
+/* Adaptación a celulares */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 25px 20px;
+    }
+}

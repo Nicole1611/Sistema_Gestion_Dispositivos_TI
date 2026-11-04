@@ -1,0 +1,49 @@
+
+body {
+    background-color: #F4F7FA;
+}
+
+.contenedor-cambio {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.tarjeta-cambio {
+    width: 100%;
+    max-width: 450px;
+    background-color: #FFFFFF;
+    padding: 35px;
+    border-radius: 10px;
+    border: 1px solid #DCE3EA;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.tarjeta-cambio h1 {
+    color: #26364A;
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.tarjeta-cambio p {
+    color: #64748B;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.tarjeta-cambio .form-group {
+    margin-bottom: 18px;
+}
+
+.tarjeta-cambio button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#mensaje {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}

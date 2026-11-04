@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios | Gestión de Dispositivos TI</title>
+
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/table.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/usuarios.css">
+</head>
+
+<body>
+
+    <div id="contenedorSidebar"></div>
+
+    <main class="contenido-principal">
+
+        <header class="encabezado-pagina">
+            <div>
+                <h1>Gestión de usuarios</h1>
+                <p>Administra las cuentas de Administradores y Técnicos del sistema.</p>
+            </div>
+        </header>
+
+        <section class="seccion-usuarios">
+
+            <div class="barra-acciones">
+                <div>
+                    <h2>Usuarios registrados</h2>
+                    <p>Personal autorizado para gestionar el sistema.</p>
+                </div>
+
+                <button type="button" id="btnRegistrar" class="btn-primary">
+                    Registrar usuario
+                </button>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre completo</th>
+                            <th>Correo institucional</th>
+                            <th>Teléfono</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaUsuarios">
+                        <tr>
+                            <td colspan="7">Cargando usuarios...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <section id="formularioUsuario" class="formulario-usuario" hidden>
+
+            <div class="encabezado-formulario">
+                <div>
+                    <h2>Registrar usuario</h2>
+                    <p>Completa los datos del nuevo Administrador o Técnico.</p>
+                </div>
+            </div>
+
+            <form id="formUsuario">
+
+                <div class="formulario-grid">
+
+                    <div class="form-group">
+                        <label for="cedula">Cédula *</label>
+                        <input
+                            type="text"
+                            id="cedula"
+                            maxlength="10"
+                            inputmode="numeric"
+                            placeholder="Ej. 1234567890"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombres">Nombres *</label>
+                        <input
+                            type="text"
+                            id="nombres"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos *</label>
+                        <input
+                            type="text"
+                            id="apellidos"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo institucional *</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            maxlength="150"
+                            placeholder="usuario@espoch.edu.ec"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input
+                            type="tel"
+                            id="telefono"
+                            maxlength="15"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Rol *</label>
+                        <select id="rol" required>
+                            <option value="">Selecciona un rol</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Técnico">Técnico</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="acciones-formulario">
+                    <button type="button" id="btnCancelar" class="btn-secondary">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" id="btnGuardar" class="btn-primary">
+                        Registrar usuario
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/usuarios.js"></script>
+
+</body>
+</html>

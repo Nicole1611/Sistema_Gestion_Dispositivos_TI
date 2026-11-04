@@ -1,13 +1,19 @@
 # Dependencias de Node.js
 node_modules/
 
-# Variables de entorno y credenciales
+# Variables de entorno
 .env
-.env.*
 
 # Archivos de registro
 *.log
 
 # Archivos temporales
-.DS_Store
-Thumbs.db
+temp/
+# Configuración personal de Visual Studio Code
+.vscode/*
+
+# Archivos compartidos del equipo
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
