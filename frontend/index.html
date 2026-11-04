@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="contenedor encabezado-contenido">
+            <div>
+                <h1>Gestión de Dispositivos TI</h1>
+                <p>ESPOCH - Sede Orellana</p>
+            </div>
+            <span class="etiqueta">Sistema de gestión</span>
+        </div>
+    </header>
+
+    <main class="contenedor principal">
+
+        <section class="bienvenida">
+            <h2>Panel de registro</h2>
+            <p>Administra las cuentas del personal y el registro de docentes.</p>
+        </section>
+
+        <nav class="pestanas">
+            <button class="pestana activa" id="btnUsuarios" type="button">
+                Registrar cuenta
+            </button>
+
+            <button class="pestana" id="btnDocentes" type="button">
+                Registrar docente
+            </button>
+        </nav>
+
+        <!-- FORMULARIO HU-02 -->
+        <section class="tarjeta formulario-seccion" id="seccionUsuarios">
+
+            <div class="titulo-formulario">
+                <h2>Registrar cuenta del personal</h2>
+                <p>Complete los datos para crear una cuenta en el sistema.</p>
+            </div>
+
+            <form id="formUsuario">
+
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="nombresUsuario">Nombres</label>
+                        <input type="text" id="nombresUsuario"
+                               placeholder="Ingrese los nombres" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellidosUsuario">Apellidos</label>
+                        <input type="text" id="apellidosUsuario"
+                               placeholder="Ingrese los apellidos" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cedulaUsuario">Cédula</label>
+                        <input type="text" id="cedulaUsuario"
+                               placeholder="10 dígitos" maxlength="10"
+                               pattern="[0-9]{10}" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="correoUsuario">Correo institucional</label>
+                        <input type="email" id="correoUsuario"
+                               placeholder="usuario@espoch.edu.ec" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="contrasenaUsuario">Contraseña</label>
+                        <input type="password" id="contrasenaUsuario"
+                               placeholder="Mínimo 8 caracteres"
+                               minlength="8" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="rolUsuario">Rol del usuario</label>
+                        <select id="rolUsuario" required>
+                            <option value="">Seleccione un rol</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Docente</option>
+                            <option value="3">Estudiante</option>
+                            <option value="4">Técnico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="acciones">
+                    <button type="submit" class="btn-guardar">
+                        Registrar cuenta
+                    </button>
+                    <button type="reset" class="btn-limpiar">
+                        Limpiar
+                    </button>
+                </div>
+
+                <div id="mensajeUsuario" class="mensaje" role="status"></div>
+
+            </form>
+        </section>
+
+        <!-- FORMULARIO HU-08 -->
+        <section class="tarjeta formulario-seccion oculto" id="seccionDocentes">
+
+            <div class="titulo-formulario">
+                <h2>Registrar docente</h2>
+                <p>Registre los datos personales y la cuenta institucional del docente.</p>
+            </div>
+
+            <form id="formDocente">
+
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="nombresDocente">Nombres</label>
+                        <input type="text" id="nombresDocente"
+                               placeholder="Ingrese los nombres" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellidosDocente">Apellidos</label>
+                        <input type="text" id="apellidosDocente"
+                               placeholder="Ingrese los apellidos" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cedulaDocente">Cédula</label>
+                        <input type="text" id="cedulaDocente"
+                               placeholder="10 dígitos" maxlength="10"
+                               pattern="[0-9]{10}" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="correoDocente">Correo institucional</label>
+                        <input type="email" id="correoDocente"
+                               placeholder="docente@espoch.edu.ec" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="contrasenaDocente">Contraseña</label>
+                        <input type="password" id="contrasenaDocente"
+                               placeholder="Mínimo 8 caracteres"
+                               minlength="8" required>
+                    </div>
+                </div>
+
+                <div class="acciones">
+                    <button type="submit" class="btn-guardar">
+                        Registrar docente
+                    </button>
+                    <button type="reset" class="btn-limpiar">
+                        Limpiar
+                    </button>
+                </div>
+
+                <div id="mensajeDocente" class="mensaje" role="status"></div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="pie">
+        <p>ESPOCH - Tecnologías de la Información | Sede Orellana</p>
+    </footer>
+
+    <script src="js/registros.js"></script>
+</body>
+</html>

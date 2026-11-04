@@ -1,0 +1,28 @@
+{
+  "name": "nicole1611-sistema_gestion_dispositivos_ti",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start": "node backend/server.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicole1611/Nicole1611-Sistema_Gestion_Dispositivos_TI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Nicole1611/Nicole1611-Sistema_Gestion_Dispositivos_TI/issues"
+  },
+  "homepage": "https://github.com/Nicole1611/Nicole1611-Sistema_Gestion_Dispositivos_TI#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mssql": "^12.7.13"
+  }
+}
