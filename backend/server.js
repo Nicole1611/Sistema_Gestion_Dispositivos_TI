@@ -6,6 +6,9 @@ const cors = require("cors");
 
 const { conectarBD } = require("./config/database");
 const authRoutes = require("./routers/auth.routes");
+const estudiantesRoutes = require("./routers/estudiantes.routes");
+const dispositivosRoutes = require("./routers/dispositivos.routes");
+const dashboardRoutes = require("./routers/dashboard.routes");
 const { verificarToken } = require("./middlewares/auth.middleware");
 const { verificarRol } = require("./middlewares/verificarRol");
 
@@ -31,9 +34,17 @@ app.get("/api/auth/verificar", verificarToken, (req, res) => {
 });
 
 
-
 // Rutas de autenticación
 app.use("/api/auth", authRoutes);
+
+// Rutas de estudiantes
+app.use("/api/estudiantes", estudiantesRoutes);
+
+// Rutas de dispositivos
+app.use("/api/dispositivos", dispositivosRoutes);
+
+// Rutas de dachboard
+app.use("/api/dashboard", dashboardRoutes);
 
 // Iniciar servidor
 async function iniciarServidor() {

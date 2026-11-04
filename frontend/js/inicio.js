@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Obtener los datos del usuario
+    // Obtener los datos de la sesión
     const datosUsuario = sessionStorage.getItem("usuario");
     const token = sessionStorage.getItem("token");
 
@@ -27,28 +27,37 @@ document.addEventListener("DOMContentLoaded", () => {
         rolUsuario.textContent = usuario.roles.join(", ");
     }
 
-    // Mostrar opciones según el rol
-    const opcionesMenu = document.querySelectorAll("[data-roles]");
+    // Consultar estadísticas del sistema
+    async function cargarEstadisticas() {
+        try {
+            const respuesta = await fetch(
+                "http://localhost:3000/api/dashboard/estadisticas",
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
 
-    opcionesMenu.forEach(opcion => {
+            const resultado = await respuesta.json();
 
-        const rolesPermitidos = opcion.dataset.roles.split(",");
+            if (!respuesta.ok) {
+                throw new Error(resultado.mensaje);
+            }
 
-        const tienePermiso = rolesPermitidos.some(rol =>
-            usuario.roles.includes(rol)
-        );
+            // Mostrar total de usuarios
+            document.getElementById("totalUsuarios").textContent =
+                resultado.datos.totalUsuarios;
 
-        opcion.style.display = tienePermiso ? "block" : "none";
-    });
+            // Mostrar total de dispositivos
+            document.getElementById("totalDispositivos").textContent =
+                resultado.datos.totalDispositivos;
 
-    // Cerrar sesión
-    const btnCerrarSesion = document.getElementById("btnCerrarSesion");
-
-    if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener("click", () => {
-            sessionStorage.clear();
-            window.location.href = "../index.html";
-        });
+        } catch (error) {
+            console.error("Error al cargar estadísticas:", error);
+        }
     }
+
+    cargarEstadisticas();
 
 });

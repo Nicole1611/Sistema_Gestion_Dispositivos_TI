@@ -44,4 +44,74 @@ VALUES
 ('Docente', 'Utiliza los dispositivos asignados'),
 ('Estudiante', 'Solicita dispositivos tecnológicos');
 
-select * from Rol
+-- 5. ESTUDIANTE
+CREATE TABLE Estudiante (
+    id_estudiante INT IDENTITY(1,1) PRIMARY KEY,
+    id_persona INT NOT NULL UNIQUE,
+    codigo_estudiante CHAR(4) NOT NULL UNIQUE,
+    carrera VARCHAR(100) NOT NULL,
+    nivel INT NOT NULL,
+    estado VARCHAR(15) NOT NULL DEFAULT 'Activo',
+    CONSTRAINT FK_Estudiante_Persona FOREIGN KEY (id_persona) REFERENCES Persona(id_persona),
+    CONSTRAINT CK_Estudiante_Estado CHECK (estado IN ('Activo', 'Inactivo')),
+    CONSTRAINT CK_Estudiante_Nivel CHECK (nivel BETWEEN 0 AND 9)
+);
+-- 6. TIPODISPOSITIVO
+CREATE TABLE TipoDispositivo (
+    id_tipo INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(150) NULL
+);
+-- 7. MARCA
+CREATE TABLE Marca (
+    id_marca INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE
+);
+-- 8. ESTADODISPOSITIVO
+CREATE TABLE EstadoDispositivo (
+    id_estado INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(30) NOT NULL UNIQUE,
+    descripcion VARCHAR(150) NULL
+);
+-- 9. DISPOSITIVO
+CREATE TABLE Dispositivo (
+    id_dispositivo INT IDENTITY(1,1) PRIMARY KEY,
+    codigo VARCHAR(30) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    id_tipo INT NOT NULL,
+    id_marca INT NOT NULL,
+    modelo VARCHAR(80) NULL,
+    numero_serie VARCHAR(80) NULL,
+    id_estado INT NOT NULL,
+    descripcion VARCHAR(250) NULL,
+    fecha_registro DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
+    CONSTRAINT FK_Dispositivo_Tipo FOREIGN KEY (id_tipo) REFERENCES TipoDispositivo(id_tipo),
+    CONSTRAINT FK_Dispositivo_Marca FOREIGN KEY (id_marca) REFERENCES Marca(id_marca),
+    CONSTRAINT FK_Dispositivo_Estado FOREIGN KEY (id_estado) REFERENCES EstadoDispositivo(id_estado)
+);
+CREATE UNIQUE INDEX UQ_Dispositivo_NumeroSerie ON Dispositivo(numero_serie) WHERE numero_serie IS NOT NULL;
+INSERT INTO Rol (nombre, descripcion)
+VALUES
+('Administrador', 'Gestiona el sistema'),
+('Técnico', 'Gestiona los dispositivos'),
+('Docente', 'Utiliza los dispositivos asignados'),
+('Estudiante', 'Solicita dispositivos tecnológicos');
+
+-- TIPOS DE DISPOSITIVOS
+INSERT INTO TipoDispositivo (nombre, descripcion)
+VALUES
+('Laptop', 'Computadoras portátiles');
+
+-- MARCAS
+INSERT INTO Marca (nombre)
+VALUES
+('HP');
+
+-- ESTADOS
+INSERT INTO EstadoDispositivo (nombre, descripcion)
+VALUES
+('Disponible', 'Dispositivo disponible para asignación'),
+('Asignado', 'Dispositivo actualmente asignado'),
+('Mantenimiento', 'Dispositivo en mantenimiento'),
+('Dañado', 'Dispositivo que presenta daños'),
+('Baja', 'Dispositivo fuera de servicio');

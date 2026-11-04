@@ -64,3 +64,54 @@
 .sidebar-footer .btn-secondary {
     width: 100%;
 }
+/* Botón para abrir el menú */
+.btn-menu {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1002;
+    background-color: #176B52;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 13px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Fondo oscuro al desplegar el menú */
+.sidebar-overlay {
+    display: none;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+
+    .sidebar {
+        z-index: 1001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.abierto {
+        transform: translateX(0);
+    }
+
+    .btn-menu {
+        display: block;
+    }
+
+    .sidebar-overlay.activo {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.45);
+        z-index: 1000;
+    }
+
+    .contenido-principal {
+        margin-left: 0 !important;
+        padding: 65px 16px 20px;
+    }
+}
