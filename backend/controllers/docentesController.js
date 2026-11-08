@@ -1,6 +1,43 @@
 const bcrypt = require('bcrypt');
 const { sql, poolPromise } = require('../config/db');
 
+// Consultar todos los docentes registrados
+const consultarDocentes = async (req, res) => {
+    try {
+        const pool = await poolPromise;
+
+        const resultado = await pool.request().query(`
+            SELECT
+                U.Nombres,
+                U.Apellidos,
+                U.Cedula,
+                U.CorreoInstitucional,
+                D.CodigoInstitucional,
+                CASE
+                    WHEN U.Estado = 1 THEN 'Activo'
+                    ELSE 'Inactivo'
+                END AS Estado
+            FROM Usuarios U
+            INNER JOIN Docentes D
+                ON U.IdUsuario = D.IdUsuario
+            WHERE U.IdRol = 2
+            ORDER BY U.Apellidos, U.Nombres;
+        `);
+
+        return res.status(200).json({
+            mensaje: 'Docentes consultados correctamente',
+            datos: resultado.recordset
+        });
+
+    } catch (error) {
+        console.error('Error al consultar docentes:', error.message);
+
+        return res.status(500).json({
+            mensaje: 'Error al consultar los docentes'
+        });
+    }
+};
+
 // Registrar un docente
 const registrarDocente = async (req, res) => {
     const transaction = new sql.Transaction(await poolPromise);
@@ -99,37 +136,57 @@ const registrarDocente = async (req, res) => {
                 )
             `);
 
-        const idUsuario = resultado.recordset[0].IdUsuario;
+      const idUsuario = resultado.recordset[0].IdUsuario;
 
-        await transaction.request()
-            .input('IdUsuario', sql.Int, idUsuario)
-            .query(`
-                INSERT INTO Docentes (IdUsuario)
-                VALUES (@IdUsuario)
-            `);
+// Generar código institucional automáticamente
+const codigoResultado = await transaction.request()
+    .query(`
+        SELECT NEXT VALUE FOR dbo.SecuenciaCodigoDocente AS NumeroCodigo
+    `);
 
-        await transaction.commit();
+const numeroCodigo = codigoResultado.recordset[0].NumeroCodigo;
+const codigoInstitucional = `DOC-${numeroCodigo}`;
 
-        return res.status(201).json({
-            mensaje: 'Docente registrado correctamente',
-            IdUsuario: idUsuario
-        });
+// Registrar la ficha del docente con su código institucional
+await transaction.request()
+    .input('IdUsuario', sql.Int, idUsuario)
+    .input('CodigoInstitucional', sql.VarChar(8), codigoInstitucional)
+    .query(`
+        INSERT INTO Docentes (
+            IdUsuario,
+            CodigoInstitucional
+        )
+        VALUES (
+            @IdUsuario,
+            @CodigoInstitucional
+        )
+    `);
 
-    } catch (error) {
-        try {
-            await transaction.rollback();
-        } catch (errorRollback) {
-            console.error('Error al revertir transacción:', errorRollback.message);
-        }
+// Confirmar la transacción
+await transaction.commit();
 
-        console.error('Error al registrar docente:', error.message);
+return res.status(201).json({
+    mensaje: 'Docente y cuenta de acceso registrados correctamente',
+    IdUsuario: idUsuario,
+    CodigoInstitucional: codigoInstitucional
+});
 
-        return res.status(500).json({
-            mensaje: 'Error interno al registrar el docente'
-        });
+} catch (error) {
+    try {
+        await transaction.rollback();
+    } catch (errorRollback) {
+        console.error('Error al revertir transacción:', errorRollback.message);
     }
+
+    console.error('Error al registrar docente:', error.message);
+
+    return res.status(500).json({
+        mensaje: 'Error interno al registrar el docente'
+    });
+}
 };
 
 module.exports = {
-    registrarDocente
+    registrarDocente,
+    consultarDocentes
 };

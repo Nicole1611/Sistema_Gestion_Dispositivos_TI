@@ -237,3 +237,143 @@ body {
         flex-direction: column;
     }
 }
+
+
+/* CONTENEDORES */
+.contenedor-principal {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex: 1;
+    padding-top: 35px;
+    padding-bottom: 45px;
+}
+
+.contenedor-encabezado {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* TITULO PRINCIPAL */
+.titulo-principal {
+    margin-bottom: 25px;
+}
+
+.titulo-principal h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.titulo-principal p {
+    color: #64748b;
+}
+
+/* BOTONES DE FORMULARIOS */
+.btn-principal {
+    padding: 12px 22px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background-color: #16834a;
+    color: white;
+}
+
+.btn-principal:hover {
+    background-color: #11683a;
+}
+
+.btn-principal:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* FORMULARIOS */
+.formulario-seccion form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.formulario-seccion .acciones {
+    grid-column: 1 / -1;
+}
+
+/* BUSCADOR DE DOCENTES */
+.busqueda-docentes {
+    margin-bottom: 22px;
+}
+
+/* TABLA DE DOCENTES */
+.contenedor-tabla {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.contenedor-tabla table {
+    width: 100%;
+    
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.contenedor-tabla th,
+.contenedor-tabla td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+.contenedor-tabla th {
+    background-color: #142b46;
+    color: white;
+    font-weight: 600;
+}
+
+.contenedor-tabla tbody tr:hover {
+    background-color: #f3f6fa;
+}
+
+/* MENSAJES */
+.mensaje-exito {
+    color: #16834a;
+}
+
+.mensaje-error {
+    color: #dc2626;
+}
+
+/* PIE DE PÁGINA */
+.pie-pagina {
+    background-color: #142b46;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 18px;
+    font-size: 13px;
+}
+
+/* DISEÑO RESPONSIVE */
+@media (max-width: 650px) {
+
+    .contenedor-principal {
+        width: 95%;
+    }
+
+    .formulario-seccion form {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario-seccion .acciones {
+        grid-column: auto;
+    }
+
+    .pestanas {
+        flex-wrap: wrap;
+    }
+
+    .contenedor-tabla {
+        overflow-x: auto;
+    }
+}

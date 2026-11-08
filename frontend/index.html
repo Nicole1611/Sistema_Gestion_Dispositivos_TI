@@ -1,174 +1,293 @@
-
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Dispositivos TI</title>
+    <title>Gestión de Dispositivos TI - ESPOCH</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <header class="encabezado">
-        <div class="contenedor encabezado-contenido">
-            <div>
-                <h1>Gestión de Dispositivos TI</h1>
-                <p>ESPOCH - Sede Orellana</p>
-            </div>
-            <span class="etiqueta">Sistema de gestión</span>
+        <div class="contenedor-encabezado">
+            <h1>Gestión de Dispositivos TI</h1>
+            <p>ESPOCH - Sede Orellana</p>
         </div>
     </header>
 
-    <main class="contenedor principal">
+    <main class="contenedor-principal">
 
-        <section class="bienvenida">
-            <h2>Panel de registro</h2>
-            <p>Administra las cuentas del personal y el registro de docentes.</p>
-        </section>
+        <div class="titulo-principal">
+            <h2>Panel de administración</h2>
+            <p>Gestione las cuentas y los docentes registrados en el sistema.</p>
+        </div>
 
+        <!-- PESTAÑAS DE NAVEGACIÓN -->
         <nav class="pestanas">
-            <button class="pestana activa" id="btnUsuarios" type="button">
+
+            <button
+                class="pestana activa"
+                id="btnUsuarios"
+                type="button">
                 Registrar cuenta
             </button>
 
-            <button class="pestana" id="btnDocentes" type="button">
+            <button
+                class="pestana"
+                id="btnDocentes"
+                type="button">
                 Registrar docente
             </button>
+
+            <button
+                class="pestana"
+                id="btnConsultarDocentes"
+                type="button">
+                Consultar docentes
+            </button>
+
         </nav>
 
-        <!-- FORMULARIO HU-02 -->
-        <section class="tarjeta formulario-seccion" id="seccionUsuarios">
+        <!-- REGISTRAR CUENTA HU-02 -->
+        <section
+            class="tarjeta formulario-seccion"
+            id="seccionUsuarios">
 
             <div class="titulo-formulario">
-                <h2>Registrar cuenta del personal</h2>
-                <p>Complete los datos para crear una cuenta en el sistema.</p>
+                <h2>Registrar cuenta de personal</h2>
+                <p>Ingrese los datos para crear una nueva cuenta de acceso.</p>
             </div>
 
             <form id="formUsuario">
 
-                <div class="grupo-campos">
-                    <div class="campo">
-                        <label for="nombresUsuario">Nombres</label>
-                        <input type="text" id="nombresUsuario"
-                               placeholder="Ingrese los nombres" required>
-                    </div>
+                <div class="campo">
+                    <label for="nombresUsuario">Nombres</label>
+                    <input
+                        type="text"
+                        id="nombresUsuario"
+                        name="Nombres"
+                        placeholder="Ingrese los nombres"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="apellidosUsuario">Apellidos</label>
-                        <input type="text" id="apellidosUsuario"
-                               placeholder="Ingrese los apellidos" required>
-                    </div>
+                <div class="campo">
+                    <label for="apellidosUsuario">Apellidos</label>
+                    <input
+                        type="text"
+                        id="apellidosUsuario"
+                        name="Apellidos"
+                        placeholder="Ingrese los apellidos"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="cedulaUsuario">Cédula</label>
-                        <input type="text" id="cedulaUsuario"
-                               placeholder="10 dígitos" maxlength="10"
-                               pattern="[0-9]{10}" required>
-                    </div>
+                <div class="campo">
+                    <label for="cedulaUsuario">Cédula</label>
+                    <input
+                        type="text"
+                        id="cedulaUsuario"
+                        name="Cedula"
+                        placeholder="Ingrese la cédula"
+                        maxlength="10"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="correoUsuario">Correo institucional</label>
-                        <input type="email" id="correoUsuario"
-                               placeholder="usuario@espoch.edu.ec" required>
-                    </div>
+                <div class="campo">
+                    <label for="correoUsuario">Correo institucional</label>
+                    <input
+                        type="email"
+                        id="correoUsuario"
+                        name="CorreoInstitucional"
+                        placeholder="usuario@espoch.edu.ec"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="contrasenaUsuario">Contraseña</label>
-                        <input type="password" id="contrasenaUsuario"
-                               placeholder="Mínimo 8 caracteres"
-                               minlength="8" required>
-                    </div>
+                <div class="campo">
+                    <label for="contrasenaUsuario">Contraseña</label>
+                    <input
+                        type="password"
+                        id="contrasenaUsuario"
+                        name="Contrasena"
+                        placeholder="Ingrese una contraseña"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="rolUsuario">Rol del usuario</label>
-                        <select id="rolUsuario" required>
-                            <option value="">Seleccione un rol</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Docente</option>
-                            <option value="3">Estudiante</option>
-                            <option value="4">Técnico</option>
-                        </select>
-                    </div>
+                <div class="campo">
+                    <label for="rolUsuario">Rol</label>
+                    <select
+                        id="rolUsuario"
+                        name="IdRol"
+                        required>
+
+                        <option value="">Seleccione un rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Docente</option>
+                        <option value="3">Estudiante</option>
+                        <option value="4">Técnico</option>
+
+                    </select>
                 </div>
 
                 <div class="acciones">
-                    <button type="submit" class="btn-guardar">
+                    <button type="submit" class="btn-principal">
                         Registrar cuenta
-                    </button>
-                    <button type="reset" class="btn-limpiar">
-                        Limpiar
                     </button>
                 </div>
 
-                <div id="mensajeUsuario" class="mensaje" role="status"></div>
-
             </form>
+
+            <p id="mensajeUsuario" class="mensaje" role="status"></p>
+
         </section>
 
-        <!-- FORMULARIO HU-08 -->
-        <section class="tarjeta formulario-seccion oculto" id="seccionDocentes">
+
+        <!-- REGISTRAR DOCENTE HU-08 -->
+        <section
+            class="tarjeta formulario-seccion oculto"
+            id="seccionDocentes">
 
             <div class="titulo-formulario">
                 <h2>Registrar docente</h2>
-                <p>Registre los datos personales y la cuenta institucional del docente.</p>
+                <p>Ingrese la información personal e institucional del docente.</p>
             </div>
 
             <form id="formDocente">
 
-                <div class="grupo-campos">
-                    <div class="campo">
-                        <label for="nombresDocente">Nombres</label>
-                        <input type="text" id="nombresDocente"
-                               placeholder="Ingrese los nombres" required>
-                    </div>
+                <div class="campo">
+                    <label for="nombresDocente">Nombres</label>
+                    <input
+                        type="text"
+                        id="nombresDocente"
+                        name="Nombres"
+                        placeholder="Ingrese los nombres"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="apellidosDocente">Apellidos</label>
-                        <input type="text" id="apellidosDocente"
-                               placeholder="Ingrese los apellidos" required>
-                    </div>
+                <div class="campo">
+                    <label for="apellidosDocente">Apellidos</label>
+                    <input
+                        type="text"
+                        id="apellidosDocente"
+                        name="Apellidos"
+                        placeholder="Ingrese los apellidos"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="cedulaDocente">Cédula</label>
-                        <input type="text" id="cedulaDocente"
-                               placeholder="10 dígitos" maxlength="10"
-                               pattern="[0-9]{10}" required>
-                    </div>
+                <div class="campo">
+                    <label for="cedulaDocente">Cédula</label>
+                    <input
+                        type="text"
+                        id="cedulaDocente"
+                        name="Cedula"
+                        placeholder="Ingrese la cédula"
+                        maxlength="10"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="correoDocente">Correo institucional</label>
-                        <input type="email" id="correoDocente"
-                               placeholder="docente@espoch.edu.ec" required>
-                    </div>
+                <div class="campo">
+                    <label for="correoDocente">Correo institucional</label>
+                    <input
+                        type="email"
+                        id="correoDocente"
+                        name="CorreoInstitucional"
+                        placeholder="usuario@espoch.edu.ec"
+                        required>
+                </div>
 
-                    <div class="campo">
-                        <label for="contrasenaDocente">Contraseña</label>
-                        <input type="password" id="contrasenaDocente"
-                               placeholder="Mínimo 8 caracteres"
-                               minlength="8" required>
-                    </div>
+                <div class="campo">
+                    <label for="contrasenaDocente">Contraseña</label>
+                    <input
+                        type="password"
+                        id="contrasenaDocente"
+                        name="Contrasena"
+                        placeholder="Ingrese una contraseña"
+                        required>
                 </div>
 
                 <div class="acciones">
-                    <button type="submit" class="btn-guardar">
+                    <button type="submit" class="btn-principal">
                         Registrar docente
-                    </button>
-                    <button type="reset" class="btn-limpiar">
-                        Limpiar
                     </button>
                 </div>
 
-                <div id="mensajeDocente" class="mensaje" role="status"></div>
-
             </form>
+
+            <p id="mensajeDocente" class="mensaje" role="status"></p>
+
+        </section>
+
+
+        <!-- CONSULTAR DOCENTES HU-09 -->
+        <section
+            class="tarjeta formulario-seccion oculto"
+            id="seccionConsultarDocentes">
+
+            <div class="titulo-formulario">
+                <h2>Consultar docentes registrados</h2>
+                <p>
+                    Consulte y verifique la información de los docentes
+                    registrados en el sistema.
+                </p>
+            </div>
+
+            <!-- BUSCADOR -->
+            <div class="campo busqueda-docentes">
+                <label for="buscarDocente">Buscar docente</label>
+
+                <input
+                    type="text"
+                    id="buscarDocente"
+                    placeholder="Buscar por código institucional, cédula o correo institucional..."
+                    autocomplete="off">
+            </div>
+
+            <!-- TABLA DE DOCENTES -->
+            <div class="contenedor-tabla">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Cédula</th>
+                            <th>Correo institucional</th>
+                            <th>Código institucional</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaDocentes">
+                        <tr>
+                            <td colspan="6">
+                                Cargando docentes...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- MENSAJE DE CONSULTA -->
+            <p
+                id="mensajeConsultaDocentes"
+                class="mensaje"
+                role="status">
+            </p>
+
         </section>
 
     </main>
 
-    <footer class="pie">
-        <p>ESPOCH - Tecnologías de la Información | Sede Orellana</p>
+    <footer class="pie-pagina">
+        <p>ESPOCH - Carrera de Tecnologías de la Información</p>
+        <p>Sede Orellana</p>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script src="js/registros.js"></script>
+
 </body>
 </html>
+```
