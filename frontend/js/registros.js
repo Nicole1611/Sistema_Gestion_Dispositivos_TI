@@ -69,6 +69,7 @@ formUsuario.addEventListener('submit', async (evento) => {
         Nombres: document.getElementById('nombresUsuario').value.trim(),
         Apellidos: document.getElementById('apellidosUsuario').value.trim(),
         Cedula: document.getElementById('cedulaUsuario').value.trim(),
+        Telefono: document.getElementById('telefonoUsuario').value.trim(),
         CorreoInstitucional: document.getElementById('correoUsuario').value.trim(),
         Contrasena: document.getElementById('contrasenaUsuario').value,
         IdRol: Number(document.getElementById('rolUsuario').value)
@@ -131,6 +132,7 @@ formDocente.addEventListener('submit', async (evento) => {
         Nombres: document.getElementById('nombresDocente').value.trim(),
         Apellidos: document.getElementById('apellidosDocente').value.trim(),
         Cedula: document.getElementById('cedulaDocente').value.trim(),
+        Telefono: document.getElementById('telefonoDocente').value.trim(),
         CorreoInstitucional: document.getElementById('correoDocente').value.trim(),
         Contrasena: document.getElementById('contrasenaDocente').value
     };
@@ -260,6 +262,7 @@ function mostrarDocentes(docentes) {
             docente.Nombres,
             docente.Apellidos,
             docente.Cedula,
+            docente.Telefono,
             docente.CorreoInstitucional,
             docente.CodigoInstitucional,
             docente.Estado

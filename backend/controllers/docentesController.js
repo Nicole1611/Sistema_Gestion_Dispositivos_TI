@@ -11,6 +11,7 @@ const consultarDocentes = async (req, res) => {
                 U.Nombres,
                 U.Apellidos,
                 U.Cedula,
+                U.Telefono,
                 U.CorreoInstitucional,
                 D.CodigoInstitucional,
                 CASE
@@ -47,17 +48,18 @@ const registrarDocente = async (req, res) => {
             Nombres,
             Apellidos,
             Cedula,
+            Telefono,
             CorreoInstitucional,
             Contrasena
         } = req.body;
 
         // 1. Validar campos obligatorios
-        if (
+       if (
             !Nombres || !Apellidos || !Cedula ||
-            !CorreoInstitucional || !Contrasena
+            !Telefono || !CorreoInstitucional || !Contrasena
         ) {
             return res.status(400).json({
-                mensaje: 'Todos los campos son obligatorios'
+            mensaje: 'Todos los campos son obligatorios'
             });
         }
 
@@ -67,7 +69,12 @@ const registrarDocente = async (req, res) => {
                 mensaje: 'La cédula debe contener 10 dígitos'
             });
         }
-
+        // Validar teléfono
+        if (!/^\+?\d{9,15}$/.test(Telefono.trim())) {
+          return res.status(400).json({
+              mensaje: 'El teléfono debe contener entre 9 y 15 dígitos'
+          });
+        }
         // 3. Validar correo institucional
         const correo = CorreoInstitucional.trim().toLowerCase();
 
@@ -113,6 +120,7 @@ const registrarDocente = async (req, res) => {
             .input('Nombres', sql.VarChar(100), Nombres.trim())
             .input('Apellidos', sql.VarChar(100), Apellidos.trim())
             .input('Cedula', sql.VarChar(10), Cedula)
+            .input('Telefono', sql.VarChar(15), Telefono.trim())
             .input('Correo', sql.VarChar(150), correo)
             .input('ContrasenaHash', sql.VarChar(255), contrasenaHash)
             .input('IdRol', sql.Int, 2)
@@ -121,6 +129,7 @@ const registrarDocente = async (req, res) => {
                     Nombres,
                     Apellidos,
                     Cedula,
+                    Telefono,
                     CorreoInstitucional,
                     ContrasenaHash,
                     IdRol
@@ -130,6 +139,7 @@ const registrarDocente = async (req, res) => {
                     @Nombres,
                     @Apellidos,
                     @Cedula,
+                    @Telefono,
                     @Correo,
                     @ContrasenaHash,
                     @IdRol
@@ -138,7 +148,7 @@ const registrarDocente = async (req, res) => {
 
       const idUsuario = resultado.recordset[0].IdUsuario;
 
-// Generar código institucional automáticamente
+    // Generar código institucional automáticamente
 const codigoResultado = await transaction.request()
     .query(`
         SELECT NEXT VALUE FOR dbo.SecuenciaCodigoDocente AS NumeroCodigo
