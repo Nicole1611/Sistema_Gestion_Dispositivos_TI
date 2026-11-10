@@ -24,5 +24,33 @@ function verificarToken(req, res, next) {
         });
     }
 }
+// Verificar si el usuario debe cambiar su contraseña
+function verificarCambioContrasena(req, res, next) {
 
-module.exports = { verificarToken };
+    if (req.usuario?.debe_cambiar_contrasena) {
+        return res.status(403).json({
+            mensaje: "Debes cambiar tu contraseña antes de continuar.",
+            debe_cambiar_contrasena: true
+        });
+    }
+
+    next();
+}
+function verificarAdministrador(req, res, next) {
+
+    const roles = req.usuario?.roles || [];
+
+    if (!roles.includes("Administrador")) {
+        return res.status(403).json({
+            mensaje: "No tienes permisos para realizar esta acción."
+        });
+    }
+
+    next();
+}
+
+module.exports = {
+    verificarToken,
+    verificarAdministrador,
+    verificarCambioContrasena
+};

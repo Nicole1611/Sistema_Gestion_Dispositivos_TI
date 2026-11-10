@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 
 async function iniciarSesion(correo, contrasena) {
     try {
+        if (!contrasena || contrasena.length > 12) {
+        throw new Error("La contraseña no puede superar los 12 caracteres.");
+        }
         const pool = await conectarBD();
 
         // Buscar al usuario y sus roles
@@ -15,6 +18,7 @@ async function iniciarSesion(correo, contrasena) {
                     U.id_usuario,
                     U.contrasena_hash,
                     U.estado,
+                    U.debe_cambiar_contrasena,
                     P.id_persona,
                     P.nombres,
                     P.apellidos,
@@ -60,7 +64,8 @@ async function iniciarSesion(correo, contrasena) {
         const token = jwt.sign(
             {
                 id_usuario: usuario.id_usuario,
-                roles: roles
+                roles: roles,
+                debe_cambiar_contrasena: usuario.debe_cambiar_contrasena
             },
             process.env.JWT_SECRET,
             { expiresIn: "2h" }
@@ -75,7 +80,8 @@ async function iniciarSesion(correo, contrasena) {
                 nombres: usuario.nombres,
                 apellidos: usuario.apellidos,
                 correo: usuario.correo_institucional,
-                roles
+                roles,
+                debe_cambiar_contrasena: usuario.debe_cambiar_contrasena
             }
         };
 
@@ -83,5 +89,60 @@ async function iniciarSesion(correo, contrasena) {
         throw error;
     }
 }
+// Cambiar contraseña del usuario
+async function cambiarContrasena(id_usuario, contrasenaActual, contrasenaNueva) {
+    try {
+        if (!contrasenaNueva || contrasenaNueva.length > 12) {
+            throw new Error("La nueva contraseña no puede superar los 12 caracteres.");
+        }
 
-module.exports = { iniciarSesion };
+        const pool = await conectarBD();
+
+        // Consultar contraseña actual
+        const resultado = await pool.request()
+            .input("id_usuario", sql.Int, id_usuario)
+            .query(`
+                SELECT contrasena_hash
+                FROM Usuario
+                WHERE id_usuario = @id_usuario
+            `);
+
+        if (resultado.recordset.length === 0) {
+            throw new Error("Usuario no encontrado.");
+        }
+
+        const hashActual = resultado.recordset[0].contrasena_hash;
+
+        // Verificar contraseña actual
+        const coincide = await bcrypt.compare(
+            contrasenaActual,
+            hashActual
+        );
+
+        if (!coincide) {
+            throw new Error("La contraseña actual es incorrecta.");
+        }
+
+        // Generar hash de la nueva contraseña
+        const nuevoHash = await bcrypt.hash(contrasenaNueva, 10);
+
+        // Actualizar contraseña y quitar obligación de cambio
+        await pool.request()
+            .input("id_usuario", sql.Int, id_usuario)
+            .input("contrasena_hash", sql.VarChar(255), nuevoHash)
+            .query(`
+                UPDATE Usuario
+                SET contrasena_hash = @contrasena_hash,
+                    debe_cambiar_contrasena = 0
+                WHERE id_usuario = @id_usuario
+            `);
+
+        return {
+            mensaje: "Contraseña actualizada correctamente."
+        };
+
+    } catch (error) {
+        throw error;
+    }
+}
+module.exports = { iniciarSesion, cambiarContrasena };
