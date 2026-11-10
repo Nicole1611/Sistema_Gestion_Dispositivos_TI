@@ -1,24 +1,57 @@
+const path = require("path");
 const sql = require("mssql/msnodesqlv8");
-require("dotenv").config();
 
-const config = {
-    connectionString:
-        `Driver={ODBC Driver 18 for SQL Server};` +
-        `Server=${process.env.DB_SERVER};` +
-        `Database=${process.env.DB_DATABASE};` +
-        `Trusted_Connection=Yes;` +
-        `TrustServerCertificate=Yes;`
-};
+require("dotenv").config({
+    path: path.join(__dirname, "..", ".env")
+});
 
-async function conectarBD() {
-    try {
-        const pool = await sql.connect(config);
-        console.log("Conexión exitosa con SQL Server");
-        return pool;
-    } catch (error) {
-        console.error("Error al conectar con SQL Server:", error);
-        throw error;
+const variablesObligatorias = [
+    "DB_SERVER",
+    "DB_DATABASE",
+    "DB_USER",
+    "DB_PASSWORD"
+];
+
+for (const variable of variablesObligatorias) {
+    if (!process.env[variable]) {
+        throw new Error(`Falta configurar ${variable} en backend/.env`);
     }
 }
 
-module.exports = { conectarBD, sql };
+// Protege los valores que forman parte de la cadena ODBC.
+function valorODBC(valor) {
+    return `{${String(valor).replace(/}/g, "}}")}}`;
+}
+
+const config = {
+    connectionString: [
+        `Driver=${valorODBC(
+            process.env.DB_DRIVER || "ODBC Driver 18 for SQL Server"
+        )}`,
+        `Server=${valorODBC(process.env.DB_SERVER)}`,
+        `Database=${valorODBC(process.env.DB_DATABASE)}`,
+        `UID=${valorODBC(process.env.DB_USER)}`,
+        `PWD=${valorODBC(process.env.DB_PASSWORD)}`,
+        "Trusted_Connection=No",
+        "Encrypt=Yes",
+        "TrustServerCertificate=Yes"
+    ].join(";") + ";",
+
+    connectionTimeout: 15000,
+    requestTimeout: 30000,
+
+    pool: {
+        max: 10,
+        min: 0,
+        idleTimeoutMillis: 30000
+    }
+};
+
+async function conectarBD() {
+    return sql.connect(config);
+}
+
+module.exports = {
+    conectarBD,
+    sql
+};

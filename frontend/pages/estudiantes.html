@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes | Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/registros.css">
+</head>
+<body>
+    <div id="contenedorSidebar"></div>
+    <main class="contenido-principal">
+        <header class="encabezado-pagina">
+            <p class="etiqueta-modulo"></p>
+            <h1>Gestión de estudiantes</h1>
+            <p>Registra estudiantes y crea automáticamente sus cuentas de acceso.</p>
+        </header>
+        <div id="mensajeEstudiante" class="mensaje-resultado" role="status" aria-live="polite" hidden></div>
+        <section id="accesoTemporal" class="panel-credencial" hidden>
+            <h2>Cuenta creada · entregar al estudiante</h2>
+            <p>La contraseña se muestra una sola vez. Entrégala de forma privada y no tomes capturas de pantalla.</p>
+            <div class="fila-credencial">
+                <code id="contrasenaTemporal"></code>
+                <button type="button" class="btn-secondary" id="copiarContrasena">Copiar</button>
+            </div>
+            <p>Al iniciar sesión se solicitará cambiarla.</p>
+        </section>
+        <section class="panel-registro">
+            <div class="barra-acciones">
+                <div><h2>Estudiantes registrados</h2><p>Datos y matrícula de cada estudiante.</p></div>
+                <button class="btn-primary" type="button" id="btnRegistrar">+ Registrar estudiante</button>
+            </div>
+            <div class="tabla-contenedor">
+                <table class="tabla-registro">
+                    <thead><tr><th>Matrícula</th><th>Cédula</th><th>Estudiante</th><th>Correo institucional</th><th>Estado</th></tr></thead>
+                    <tbody id="tablaEstudiantes"><tr><td colspan="5">Cargando estudiantes...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+        <section id="formularioEstudiante" class="panel-registro panel-formulario" hidden>
+            <div class="cabecera-formulario">
+                <h2>Registrar estudiante</h2><p>Todos los campos son obligatorios.</p>
+            </div>
+            <form id="formEstudiante">
+                <div class="formulario-grid">
+                    <div class="form-group"><label for="nombres">Nombres *</label>
+                        <input id="nombres" name="nombres" maxlength="100" autocomplete="given-name" required></div>
+                    <div class="form-group"><label for="apellidos">Apellidos *</label>
+                        <input id="apellidos" name="apellidos" maxlength="100" autocomplete="family-name" required></div>
+                    <div class="form-group"><label for="cedula">Cédula ecuatoriana *</label>
+                        <input id="cedula" name="cedula" type="text" inputmode="numeric" minlength="10" maxlength="10" pattern="[0-9]{10}" placeholder="10 dígitos" required></div>
+                    <div class="form-group"><label for="matricula">Matrícula / código estudiantil *</label>
+                        <input id="matricula" name="matricula" maxlength="30" pattern="[A-Za-z0-9._-]+" placeholder="Ej. TI-2026-001" required></div>
+                    <div class="form-group campo-ancho"><label for="correo">Correo institucional *</label>
+                        <input id="correo" name="correo" type="email" maxlength="150" placeholder="estudiante@espoch.edu.ec" required></div>
+                </div>
+                <div class="acciones-formulario">
+                    <button type="button" class="btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnGuardar">Guardar estudiante y crear cuenta</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/registro-common.js"></script>
+    <script src="../js/estudiantes.js"></script>
+</body>
+</html>

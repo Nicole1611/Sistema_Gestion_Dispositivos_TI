@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 
 async function iniciarSesion(correo, contrasena) {
     try {
-        if (!contrasena || contrasena.length > 12) {
-        throw new Error("La contraseña no puede superar los 12 caracteres.");
+        if (!contrasena || typeof contrasena !== "string" || Buffer.byteLength(contrasena) > 72) {
+        throw new Error("Ingrese una contraseña válida (máximo 72 bytes).");
         }
         const pool = await conectarBD();
 
@@ -41,10 +41,13 @@ async function iniciarSesion(correo, contrasena) {
         const usuario = resultado.recordset[0];
 
         // Comprobar estado de la cuenta
-        if (usuario.estado !== "Activo") {
-            throw new Error("La cuenta se encuentra inactiva.");
-        }
+const estadoCuenta = String(usuario.estado || "")
+    .trim()
+    .toLowerCase();
 
+if (!["activo", "activa"].includes(estadoCuenta)) {
+    throw new Error("La cuenta se encuentra inactiva.");
+}
         // Verificar contraseña
         const contrasenaValida = await bcrypt.compare(
             contrasena,
@@ -92,8 +95,8 @@ async function iniciarSesion(correo, contrasena) {
 // Cambiar contraseña del usuario
 async function cambiarContrasena(id_usuario, contrasenaActual, contrasenaNueva) {
     try {
-        if (!contrasenaNueva || contrasenaNueva.length > 12) {
-            throw new Error("La nueva contraseña no puede superar los 12 caracteres.");
+        if (typeof contrasenaNueva !== "string" || contrasenaNueva.length < 12 || Buffer.byteLength(contrasenaNueva) > 72) {
+            throw new Error("La nueva contraseña debe contener al menos 12 caracteres y como máximo 72 bytes.");
         }
 
         const pool = await conectarBD();

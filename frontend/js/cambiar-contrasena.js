@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (contrasenaNueva.length > 12) {
-            mensaje.textContent = "La contraseña no puede superar los 12 caracteres.";
+        if (contrasenaNueva.length < 12 || new TextEncoder().encode(contrasenaNueva).length > 72) {
+            mensaje.textContent = "La contraseña nueva debe tener al menos 12 caracteres y máximo 72 bytes.";
             return;
         }
 

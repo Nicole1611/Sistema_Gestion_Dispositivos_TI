@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos | Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/registros.css">
+</head>
+<body>
+    <div id="contenedorSidebar"></div>
+    <main class="contenido-principal">
+        <header class="encabezado-pagina">
+            <p class="etiqueta-modulo"></p>
+            <h1>Gestión de dispositivos</h1>
+            <p>Registra equipos tecnológicos y consulta su disponibilidad para préstamos.</p>
+        </header>
+        <div id="mensajeDispositivo" class="mensaje-resultado" role="status" aria-live="polite" hidden></div>
+        <section class="panel-registro">
+            <div class="barra-acciones">
+                <div><h2>Inventario de dispositivos</h2><p>Equipos registrados en la carrera.</p></div>
+                <button class="btn-primary" type="button" id="btnRegistrar">+ Registrar dispositivo</button>
+            </div>
+            <div class="tabla-contenedor">
+                <table class="tabla-registro">
+                    <thead><tr><th>Inventario</th><th>Dispositivo</th><th>Tipo</th><th>Marca / modelo</th><th>Serie</th><th>Estado</th></tr></thead>
+                    <tbody id="tablaDispositivos"><tr><td colspan="6">Cargando dispositivos...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+        <section id="formularioDispositivo" class="panel-registro panel-formulario" hidden>
+            <div class="cabecera-formulario"><h2>Registrar nuevo dispositivo</h2>
+                <p>Los campos con * son obligatorios. La fecha se elige desde el calendario.</p></div>
+            <form id="formDispositivo">
+                <div class="formulario-grid">
+                    <div class="form-group"><label for="codigoInventario">Código de inventario *</label>
+                        <input id="codigoInventario" maxlength="40" placeholder="TI-INV-001" required></div>
+                    <div class="form-group"><label for="nombre">Nombre del dispositivo *</label>
+                        <input id="nombre" maxlength="120" placeholder="Ej. Laptop de laboratorio" required></div>
+                    <div class="form-group"><label for="tipo">Tipo *</label>
+                        <select id="tipo" required><option value="">Seleccionar tipo</option>
+                            <option>Laptop</option><option>Dron</option><option>Proyector</option>
+                            <option>Tablet</option><option>Accesorio</option></select></div>
+                    <div class="form-group"><label for="marca">Marca *</label>
+                        <input id="marca" maxlength="80" placeholder="Ej. Lenovo" required></div>
+                    <div class="form-group"><label for="modelo">Modelo *</label>
+                        <input id="modelo" maxlength="80" placeholder="Ej. ThinkPad E14" required></div>
+                    <div class="form-group"><label for="numeroSerie">Número de serie (opcional)</label>
+                        <input id="numeroSerie" maxlength="100" placeholder="Ej. SN123456"></div>
+                    <div class="form-group"><label for="fechaAdquisicion">Fecha de adquisición</label>
+                        <input id="fechaAdquisicion" type="date"></div>
+                    <div class="form-group"><label for="estado">Estado inicial *</label>
+                        <select id="estado" required><option value="Disponible">Disponible</option>
+                            <option value="En Mantenimiento">En Mantenimiento</option></select></div>
+                    <div class="form-group campo-ancho"><label for="descripcion">Descripción (opcional)</label>
+                        <textarea id="descripcion" rows="3" maxlength="1000" placeholder="Características del equipo"></textarea></div>
+                    <div class="form-group campo-ancho"><label for="observaciones">Observaciones (opcional)</label>
+                        <textarea id="observaciones" rows="3" maxlength="1000" placeholder="Comentarios adicionales"></textarea></div>
+                </div>
+                <div class="acciones-formulario">
+                    <button type="button" class="btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnGuardar">Guardar dispositivo</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/registro-common.js"></script>
+    <script src="../js/dispositivos.js"></script>
+</body>
+</html>

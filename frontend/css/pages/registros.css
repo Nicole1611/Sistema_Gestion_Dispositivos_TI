@@ -1,0 +1,46 @@
+/* Apariencia alineada con la barra lateral y botones del proyecto original. */
+.contenido-principal { margin-left: 250px; padding: 32px 36px; min-height: 100vh; background: #f5f7fa; }
+.encabezado-pagina { margin-bottom: 26px; }
+.encabezado-pagina h1 { font-size: 29px; color: #26364a; margin: 5px 0 8px; }
+.encabezado-pagina > p:last-child { color: #66758a; font-size: 14px; }
+.etiqueta-modulo { color: #176b52; font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.panel-registro, .panel-credencial { background: #fff; border: 1px solid #e7edf3; border-radius: 11px;
+    padding: 25px; margin-bottom: 24px; box-shadow: 0 3px 12px rgba(20,34,50,.04); }
+.panel-registro[hidden], .panel-credencial[hidden], .mensaje-resultado[hidden] { display: none; }
+.barra-acciones { display: flex; gap: 14px; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.barra-acciones h2, .cabecera-formulario h2, .panel-credencial h2 { font-size: 19px; color: #26364a; margin: 0 0 5px; }
+.barra-acciones p, .cabecera-formulario p, .panel-credencial p { color: #66758a; font-size: 13px; margin: 0 0 10px; }
+.tabla-contenedor { width: 100%; overflow-x: auto; }
+.tabla-registro { width: 100%; min-width: 720px; border-collapse: collapse; text-align: left; }
+.tabla-registro th, .tabla-registro td { padding: 14px 16px; border-bottom: 1px solid #e4ebf2; font-size: 13px; }
+.tabla-registro th { background: #f2f6fa; color: #26364a; font-weight: 700; }
+.tabla-registro td { color: #4b5b6b; }
+.tabla-registro tr:hover td { background: #fafcfd; }
+.cabecera-formulario { margin-bottom: 20px; }
+.formulario-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.formulario-grid .form-group { display: flex; flex-direction: column; gap: 7px; }
+.formulario-grid label { font-weight: 600; font-size: 13px; color: #26364a; }
+.formulario-grid input, .formulario-grid select, .formulario-grid textarea { width: 100%; min-width: 0; padding: 11px 12px;
+    font: inherit; font-size: 14px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; color: #26364a; }
+.formulario-grid textarea { resize: vertical; }
+.formulario-grid :is(input,select,textarea):focus { outline: 2px solid rgba(23,107,82,.18); border-color: #176b52; }
+.campo-ancho { grid-column: 1 / -1; }
+.acciones-formulario { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+.acciones-formulario button:disabled { cursor: wait; opacity: .65; }
+.mensaje-resultado { padding: 14px 17px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; }
+.mensaje-exito { background: #e8f6ee; border: 1px solid #b2ddc5; color: #176b52; }
+.mensaje-error { background: #fff0ef; border: 1px solid #f2c4bd; color: #a22b26; }
+.panel-credencial { background: #f8fbf9; border-color: #b2ddc5; }
+.fila-credencial { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+.fila-credencial code { display: inline-block; font-size: 16px; letter-spacing: .045em; padding: 13px 15px;
+    border: 1px dashed #176b52; border-radius: 6px; user-select: all; overflow-wrap: anywhere; }
+.estado-tag { display: inline-block; border-radius: 20px; padding: 5px 10px; font-size: 12px; white-space: nowrap; font-weight: 600; }
+.estado-ok { color: #176b52; background: #e8f6ee; }
+.estado-pendiente { color: #906000; background: #fff3ce; }
+@media(max-width:768px) {
+    .contenido-principal { margin-left: 0; padding: 74px 16px 20px; }
+    .panel-registro,.panel-credencial { padding: 18px; }
+    .formulario-grid { grid-template-columns: 1fr; }
+    .barra-acciones,.acciones-formulario { align-items: stretch; flex-direction: column; }
+    .barra-acciones button, .acciones-formulario button { width: 100%; }
+}

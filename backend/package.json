@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/*.test.js",
     "start": "node server.js"
   },
   "keywords": [],
@@ -18,7 +18,7 @@
     "express": "^5.3.0",
     "jsonwebtoken": "^9.0.3",
     "msnodesqlv8": "^6.2.2",
-    "mssql": "^12.7.13"
+    "mssql": "^12.7.14"
   },
   "allowScripts": {
     "msnodesqlv8@6.2.2": true
