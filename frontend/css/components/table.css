@@ -1,0 +1,28 @@
+
+/* Contenedor de tablas */
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabla general */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+}
+
+/* Celdas */
+.tabla th,
+.tabla td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #DCE3EA;
+}
+
+/* Encabezados */
+.tabla th {
+    background-color: #F4F7FA;
+    color: #26364A;
+    font-weight: 600;
+}

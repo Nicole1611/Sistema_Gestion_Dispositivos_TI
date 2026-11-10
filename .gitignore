@@ -3,9 +3,12 @@ node_modules/
 
 # Variables de entorno
 .env
+.env.*
 
 # Archivos de registro
 *.log
 
 # Archivos temporales
 temp/
+.DS_Store
+Thumbs.db

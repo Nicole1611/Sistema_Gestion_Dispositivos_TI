@@ -30,3 +30,40 @@
 .form-textarea:focus {
     border-color: #176B52;
 }
+
+
+/* Contenedor general del formulario */
+.formulario {
+    width: 100%;
+}
+
+/* Distribución de campos */
+.formulario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 20px;
+}
+
+/* Campo que ocupa todo el ancho */
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+/* Acciones del formulario */
+.formulario-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Diseño adaptable */
+@media (max-width: 600px) {
+    .formulario-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-completo {
+        grid-column: auto;
+    }
+}

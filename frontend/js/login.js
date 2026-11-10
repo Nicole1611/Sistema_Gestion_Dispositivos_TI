@@ -51,11 +51,14 @@ loginForm.addEventListener("submit", async (evento) => {
             JSON.stringify(resultado.usuario)
         );
 
-        alert("Bienvenido/a " + resultado.usuario.nombres);
-
-        // Redirigir al inicio
-        window.location.href = "pages/inicio.html";
-
+        // Comprobar si debe cambiar su contraseña
+    if (resultado.usuario.debe_cambiar_contrasena) {
+        window.location.href = "pages/auth/cambiar-contrasena.html";
+    } else {
+    alert("Bienvenido/a " + resultado.usuario.nombres);
+    // Redirigir al inicio
+    window.location.href = "pages/inicio.html";
+}
     } catch (error) {
         console.error("Error al iniciar sesión:", error);
         alert("No se pudo conectar con el servidor.");
