@@ -70,3 +70,133 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Búsqueda y filtros de dispositivos */
+.filtros-dispositivos {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 20px;
+    align-items: end;
+    margin-bottom: 22px;
+    padding: 18px;
+    background-color: #F3F6FA;
+    border-radius: 8px;
+}
+
+.busqueda-dispositivo,
+.filtro-tipo,
+.filtro-estado {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.busqueda-dispositivo label,
+.filtro-tipo label,
+.filtro-estado label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #26364A;
+}
+
+.busqueda-dispositivo input,
+.filtro-tipo select,
+.filtro-estado select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+.busqueda-dispositivo input:focus,
+.filtro-tipo select:focus,
+.filtro-estado select:focus {
+    outline: none;
+    border-color: #176B52;
+}
+
+.contador-dispositivos {
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #26364A;
+}
+
+/* Diseño adaptable */
+@media (max-width: 768px) {
+    .filtros-dispositivos {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+
+/* Ficha de detalle del dispositivo */
+.encabezado-formulario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.detalle-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 15px;
+    background-color: #F3F6FA;
+    border-radius: 6px;
+}
+
+.detalle-item span {
+    color: #64748B;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.detalle-item strong {
+    color: #26364A;
+    font-size: 15px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.detalle-descripcion {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+    .detalle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-descripcion {
+        grid-column: auto;
+    }
+
+    .encabezado-formulario {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+.acciones-dispositivo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.acciones-dispositivo button {
+    margin: 0;
+}
+[hidden] {
+    display: none !important;
+}

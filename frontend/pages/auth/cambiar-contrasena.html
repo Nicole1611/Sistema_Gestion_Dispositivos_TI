@@ -19,8 +19,7 @@
             <h1>Cambiar contraseña</h1>
 
             <p>
-                Por seguridad, debes cambiar tu contraseña temporal
-                antes de continuar.
+                Actualiza tu contraseña para mantener segura tu cuenta.
             </p>
 
             <form id="formCambiarContrasena">
@@ -33,7 +32,8 @@
                         class="form-input"
                         type="password"
                         id="contrasenaActual"
-                        maxlength="12"
+                        minlength="10"
+                        maxlength="64"
                         required
                     >
                 </div>
@@ -46,7 +46,8 @@
                         class="form-input"
                         type="password"
                         id="contrasenaNueva"
-                        maxlength="12"
+                        minlength="10"
+                        maxlength="64"
                         required
                     >
                 </div>
@@ -59,8 +60,8 @@
                         class="form-input"
                         type="password"
                         id="confirmarContrasena"
-                        maxlength="12"
-                        required
+                        minlength="10"
+                        maxlength="64"                        required
                     >
                 </div>
 

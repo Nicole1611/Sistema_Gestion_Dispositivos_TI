@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (contrasenaNueva.length > 12) {
-            mensaje.textContent = "La contraseña no puede superar los 12 caracteres.";
+        if (contrasenaNueva.length < 10 || contrasenaNueva.length > 64) {
+            mensaje.textContent = "La contraseña debe tener entre 12 y 64 caracteres.";
             return;
         }
 
         if (contrasenaNueva !== confirmarContrasena) {
-            mensaje.textContent = "Las contraseñas nuevas no coinciden.";
+            mensaje.textContent = "Las contraseñas no coinciden.";
             return;
         }
 
@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({
                     contrasenaActual,
-                    contrasenaNueva
+                    contrasenaNueva,
+                    confirmarContrasena
                 })
             });
 
@@ -49,7 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mensaje.textContent = "Contraseña actualizada correctamente.";
 
-            // Actualizar datos de sesión
+            // Guardar el nuevo token generado por el backend
+            sessionStorage.setItem("token", resultado.token);
+
+            // Actualizar los datos del usuario
             const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
             if (usuario) {
@@ -57,11 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 sessionStorage.setItem("usuario", JSON.stringify(usuario));
             }
 
-            // Cerrar sesión para generar un token nuevo
-            sessionStorage.removeItem("token");
-
+            // Redirigir al inicio del sistema
             setTimeout(() => {
-                window.location.href = "../../index.html";
+                window.location.href = "../inicio.html";
             }, 1500);
 
         } catch (error) {

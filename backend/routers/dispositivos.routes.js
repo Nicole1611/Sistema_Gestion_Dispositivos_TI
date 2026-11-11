@@ -6,16 +6,17 @@ const dispositivosController = require("../controllers/dispositivos.controller")
 
 const {
     verificarToken,
-    verificarAdministrador,
     verificarCambioContrasena
 } = require("../middlewares/auth.middleware");
+
+const { verificarRol } = require("../middlewares/verificarRol");
 
 // Consultar tipos, marcas y estados
 router.get(
     "/catalogos",
     verificarToken,
     verificarCambioContrasena,
-    verificarAdministrador,
+    verificarRol("Administrador", "Técnico"),
     dispositivosController.listarCatalogos
 );
 
@@ -24,15 +25,26 @@ router.get(
     "/",
     verificarToken,
     verificarCambioContrasena,
-    verificarAdministrador,
+    verificarRol("Administrador", "Técnico"),
     dispositivosController.listarDispositivos
 );
+
 // Registrar dispositivo
 router.post(
     "/",
     verificarToken,
     verificarCambioContrasena,
-    verificarAdministrador,
+    verificarRol("Administrador", "Técnico"),
     dispositivosController.registrarDispositivo
 );
+
+// Actualizar dispositivo
+router.put(
+    "/:id",
+    verificarToken,
+    verificarCambioContrasena,
+    verificarRol("Administrador", "Técnico"),
+    dispositivosController.actualizarDispositivo
+);
+
 module.exports = router;

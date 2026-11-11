@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 
 async function iniciarSesion(correo, contrasena) {
     try {
-        if (!contrasena || contrasena.length > 12) {
-        throw new Error("La contraseña no puede superar los 12 caracteres.");
+            if (!contrasena || contrasena.length < 10 || contrasena.length > 64) {
+            throw new Error("La contraseña debe tener entre 12 y 64 caracteres.");
         }
         const pool = await conectarBD();
 
@@ -92,27 +92,40 @@ async function iniciarSesion(correo, contrasena) {
 // Cambiar contraseña del usuario
 async function cambiarContrasena(id_usuario, contrasenaActual, contrasenaNueva) {
     try {
-        if (!contrasenaNueva || contrasenaNueva.length > 12) {
-            throw new Error("La nueva contraseña no puede superar los 12 caracteres.");
-        }
+        if (
+        !contrasenaNueva ||
+        contrasenaNueva.length < 10 ||
+        contrasenaNueva.length > 64
+    ) {
+        throw new Error("La nueva contraseña debe tener entre 12 y 64 caracteres.");
+    }
 
         const pool = await conectarBD();
 
-        // Consultar contraseña actual
-        const resultado = await pool.request()
-            .input("id_usuario", sql.Int, id_usuario)
-            .query(`
-                SELECT contrasena_hash
-                FROM Usuario
-                WHERE id_usuario = @id_usuario
-            `);
+        // Consultar contraseña actual y cédula
+const resultado = await pool.request()
+    .input("id_usuario", sql.Int, id_usuario)
+    .query(`
+        SELECT
+            U.contrasena_hash,
+            P.cedula
+        FROM Usuario U
+        INNER JOIN Persona P
+            ON U.id_persona = P.id_persona
+        WHERE U.id_usuario = @id_usuario
+    `);
 
         if (resultado.recordset.length === 0) {
             throw new Error("Usuario no encontrado.");
         }
 
         const hashActual = resultado.recordset[0].contrasena_hash;
+        const cedula = resultado.recordset[0].cedula;
 
+        // La nueva contraseña no puede ser igual a la cédula
+        if (contrasenaNueva === cedula) {
+            throw new Error("La nueva contraseña no puede ser igual a su número de cédula.");
+        }
         // Verificar contraseña actual
         const coincide = await bcrypt.compare(
             contrasenaActual,
@@ -123,6 +136,15 @@ async function cambiarContrasena(id_usuario, contrasenaActual, contrasenaNueva) 
             throw new Error("La contraseña actual es incorrecta.");
         }
 
+        // Evitar reutilizar la contraseña actual
+        const esLaMisma = await bcrypt.compare(
+            contrasenaNueva,
+            hashActual
+        );
+
+        if (esLaMisma) {
+            throw new Error("La nueva contraseña debe ser diferente a la actual.");
+        }
         // Generar hash de la nueva contraseña
         const nuevoHash = await bcrypt.hash(contrasenaNueva, 10);
 

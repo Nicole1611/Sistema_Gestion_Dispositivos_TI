@@ -35,6 +35,38 @@
                 </button>
             </div>
 
+            <!-- Búsqueda y filtros -->
+            <div class="filtros-dispositivos">
+
+                <div class="busqueda-dispositivo">
+                    <label for="buscarDispositivo">Buscar dispositivo</label>
+                    <input
+                        type="text"
+                        id="buscarDispositivo"
+                        placeholder="Buscar por código o nombre..."
+                    >
+                </div>
+
+                <div class="filtro-tipo">
+                    <label for="filtroTipo">Filtrar por tipo</label>
+                    <select id="filtroTipo">
+                        <option value="Todos">Todos los tipos</option>
+                    </select>
+                </div>
+
+                <div class="filtro-estado">
+                    <label for="filtroEstado">Filtrar por estado</label>
+                    <select id="filtroEstado">
+                        <option value="Todos">Todos los estados</option>
+                    </select>
+                </div>
+
+                <div class="contador-dispositivos">
+                    <span id="contadorDispositivos">0 dispositivos</span>
+                </div>
+
+            </div>
+
             <div class="tabla-contenedor">
                 <table class="tabla">
                     <thead>
@@ -55,6 +87,75 @@
 
         </section>
 
+
+        <!-- Ficha de detalle del dispositivo -->
+        <section id="detalleDispositivo"
+            class="seccion-dispositivos detalle-dispositivo"
+            hidden>
+
+            <div class="encabezado-formulario">
+                <div>
+                    <h2>Detalle del dispositivo</h2>
+                    <p>Información completa del dispositivo seleccionado.</p>
+                </div>
+
+                <button type="button" id="btnCerrarDetalle"
+                    class="btn-secondary">
+                    Cerrar
+                </button>
+            </div>
+
+            <div class="detalle-grid">
+
+                <div class="detalle-item">
+                    <span>Código de inventario</span>
+                    <strong id="detalleCodigo">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Nombre</span>
+                    <strong id="detalleNombre">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Tipo</span>
+                    <strong id="detalleTipo">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Marca</span>
+                    <strong id="detalleMarca">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Modelo</span>
+                    <strong id="detalleModelo">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Número de serie</span>
+                    <strong id="detalleSerie">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Estado</span>
+                    <strong id="detalleEstado">—</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Fecha de registro</span>
+                    <strong id="detalleFecha">—</strong>
+                </div>
+
+                <div class="detalle-item detalle-descripcion">
+                    <span>Observaciones</span>
+                    <strong id="detalleDescripcion">—</strong>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Formulario de registro -->
         <section id="formularioDispositivo"
             class="seccion-dispositivos formulario-dispositivo"
@@ -62,8 +163,10 @@
 
             <div class="encabezado-formulario">
                 <div>
-                    <h2>Registrar dispositivo</h2>
-                    <p>Ingresa los datos del nuevo dispositivo tecnológico.</p>
+                    <h2 id="tituloFormulario">Registrar dispositivo</h2>
+                    <p id="descripcionFormulario">
+                        Ingresa los datos del nuevo dispositivo tecnológico.
+                    </p>
                 </div>
             </div>
 
@@ -115,7 +218,7 @@
                             placeholder="Ingrese el número de serie">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="grupoEstado">
                         <label for="id_estado" class="form-label">Estado *</label>
                         <select id="id_estado" name="id_estado"
                             class="form-select" required>
@@ -138,7 +241,7 @@
                         Cancelar
                     </button>
 
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" id="btnGuardarDispositivo" class="btn-primary">
                         Guardar dispositivo
                     </button>
                 </div>
