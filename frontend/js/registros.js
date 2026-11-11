@@ -1,26 +1,30 @@
 
 // ==========================================
-// CAMBIO ENTRE LAS TRES PESTAÑAS
+// CAMBIO ENTRE LAS CUATRO PESTAÑAS
 // ==========================================
 
 const btnUsuarios = document.getElementById('btnUsuarios');
 const btnDocentes = document.getElementById('btnDocentes');
 const btnConsultarDocentes = document.getElementById('btnConsultarDocentes');
+const btnConsultarEstudiantes = document.getElementById('btnConsultarEstudiantes');
 
 const seccionUsuarios = document.getElementById('seccionUsuarios');
 const seccionDocentes = document.getElementById('seccionDocentes');
 const seccionConsultarDocentes = document.getElementById('seccionConsultarDocentes');
+const seccionConsultarEstudiantes = document.getElementById('seccionConsultarEstudiantes');
 
 const botonesPestanas = [
     btnUsuarios,
     btnDocentes,
-    btnConsultarDocentes
+    btnConsultarDocentes,
+    btnConsultarEstudiantes
 ];
 
 const secciones = [
     seccionUsuarios,
     seccionDocentes,
-    seccionConsultarDocentes
+    seccionConsultarDocentes,
+    seccionConsultarEstudiantes
 ];
 
 // Función para cambiar de pestaña
@@ -49,6 +53,11 @@ btnDocentes.addEventListener('click', () => {
 btnConsultarDocentes.addEventListener('click', () => {
     cambiarPestana(btnConsultarDocentes, seccionConsultarDocentes);
     consultarDocentes();
+});
+
+btnConsultarEstudiantes.addEventListener('click', () => {
+    cambiarPestana(btnConsultarEstudiantes, seccionConsultarEstudiantes);
+    consultarEstudiantes();
 });
 
 
@@ -317,6 +326,146 @@ buscarDocente.addEventListener('input', () => {
     } else {
 
         mostrarDocentes(docentesFiltrados);
+    }
+
+});
+
+// ==========================================
+// CONSULTAR ESTUDIANTES - HU-13
+// ==========================================
+
+const tablaEstudiantes = document.getElementById('tablaEstudiantes');
+const buscarEstudiante = document.getElementById('buscarEstudiante');
+const mensajeConsultaEstudiantes = document.getElementById('mensajeConsultaEstudiantes');
+
+// Almacenar los estudiantes consultados
+let listaEstudiantes = [];
+// ==========================================
+// OBTENER ESTUDIANTES DESDE SQL SERVER
+// ==========================================
+
+async function consultarEstudiantes() {
+
+    tablaEstudiantes.innerHTML = `
+        <tr>
+            <td colspan="6">Cargando estudiantes...</td>
+        </tr>
+    `;
+
+    mensajeConsultaEstudiantes.textContent = '';
+    mensajeConsultaEstudiantes.className = 'mensaje';
+
+    // Limpiar el campo de búsqueda
+    buscarEstudiante.value = '';
+
+    try {
+
+        const respuesta = await fetch('/api/estudiantes/consultar');
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(resultado.mensaje || 'No se pudieron consultar los estudiantes');
+        }
+
+        listaEstudiantes = resultado.datos || [];
+
+        mostrarEstudiantes(listaEstudiantes);
+
+    } catch (error) {
+
+        tablaEstudiantes.innerHTML = `
+            <tr>
+                <td colspan="6">No se pudieron cargar los estudiantes.</td>
+            </tr>
+        `;
+
+        mensajeConsultaEstudiantes.textContent = error.message;
+        mensajeConsultaEstudiantes.className = 'mensaje mensaje-error';
+    }
+}
+// ==========================================
+// MOSTRAR ESTUDIANTES EN LA TABLA
+// ==========================================
+
+function mostrarEstudiantes(estudiantes) {
+
+    tablaEstudiantes.innerHTML = '';
+
+    if (estudiantes.length === 0) {
+
+        const fila = document.createElement('tr');
+        const celda = document.createElement('td');
+
+        celda.colSpan = 6;
+        celda.textContent = 'No hay estudiantes registrados.';
+
+        fila.appendChild(celda);
+        tablaEstudiantes.appendChild(fila);
+
+        return;
+    }
+
+    estudiantes.forEach(estudiante => {
+
+        const fila = document.createElement('tr');
+
+        const datos = [
+            estudiante.Nombres,
+            estudiante.Apellidos,
+            estudiante.Cedula,
+            estudiante.CorreoInstitucional,
+            estudiante.CodigoMatricula,
+            estudiante.Estado
+        ];
+
+        datos.forEach(dato => {
+
+            const celda = document.createElement('td');
+
+            celda.textContent = dato ?? '';
+
+            fila.appendChild(celda);
+        });
+
+        tablaEstudiantes.appendChild(fila);
+    });
+}
+// ==========================================
+// BUSCAR ESTUDIANTES EN TIEMPO REAL
+// ==========================================
+
+buscarEstudiante.addEventListener('input', () => {
+
+    const textoBusqueda = buscarEstudiante.value
+        .trim()
+        .toLowerCase();
+
+    const estudiantesFiltrados = listaEstudiantes.filter(estudiante => {
+
+        return (
+            (estudiante.Cedula || '').toLowerCase().includes(textoBusqueda) ||
+            (estudiante.CorreoInstitucional || '').toLowerCase().includes(textoBusqueda) ||
+            (estudiante.CodigoMatricula || '').toLowerCase().includes(textoBusqueda)
+        );
+    });
+
+    if (estudiantesFiltrados.length === 0) {
+
+        tablaEstudiantes.innerHTML = '';
+
+        const fila = document.createElement('tr');
+        const celda = document.createElement('td');
+
+        celda.colSpan = 6;
+        celda.textContent = 'No se encontraron estudiantes con los criterios ingresados';
+
+        fila.appendChild(celda);
+        tablaEstudiantes.appendChild(fila);
+
+    } else {
+
+        mostrarEstudiantes(estudiantesFiltrados);
     }
 
 });

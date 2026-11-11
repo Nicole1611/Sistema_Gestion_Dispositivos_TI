@@ -21,7 +21,7 @@
 
         <div class="titulo-principal">
             <h2>Panel de administración</h2>
-            <p>Gestione las cuentas y los docentes registrados en el sistema.</p>
+            <p>Gestione las cuentas, docentes y estudiantes registrados en el sistema.</p>
         </div>
 
         <!-- PESTAÑAS DE NAVEGACIÓN -->
@@ -46,6 +46,13 @@
                 id="btnConsultarDocentes"
                 type="button">
                 Consultar docentes
+            </button>
+
+            <button
+                class="pestana"
+                id="btnConsultarEstudiantes"
+                type="button">
+                Consultar estudiantes
             </button>
 
         </nav>
@@ -298,6 +305,66 @@
             </p>
 
         </section>
+
+
+<!-- CONSULTAR ESTUDIANTES HU-13 -->
+<section
+    class="tarjeta formulario-seccion oculto"
+    id="seccionConsultarEstudiantes">
+
+    <div class="titulo-formulario">
+        <h2>Consultar estudiantes registrados</h2>
+        <p>
+            Consulte y verifique la información académica
+            de los estudiantes registrados en el sistema.
+        </p>
+    </div>
+
+    <!-- BUSCADOR -->
+    <div class="campo">
+        <label for="buscarEstudiante">Buscar estudiante</label>
+
+        <input
+            type="text"
+            id="buscarEstudiante"
+            placeholder="Buscar por cédula, correo institucional o matrícula..."
+            autocomplete="off">
+    </div>
+
+    <!-- TABLA DE ESTUDIANTES -->
+    <div class="contenedor-tabla">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Cédula</th>
+                    <th>Correo institucional</th>
+                    <th>Matrícula</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaEstudiantes">
+                <tr>
+                    <td colspan="6">Cargando estudiantes...</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- MENSAJE DE CONSULTA -->
+    <p
+        id="mensajeConsultaEstudiantes"
+        class="mensaje"
+        role="status">
+    </p>
+
+</section>
+
 
     </main>
 

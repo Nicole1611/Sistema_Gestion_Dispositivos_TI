@@ -4,7 +4,7 @@ const cors = require('cors');
 const { poolPromise } = require('./config/db');
 const usuariosRoutes = require('./routers/usuariosRoutes');
 const docentesRoutes = require('./routers/docentesRoutes');
-
+const estudiantesRoutes = require('./routers/estudiantesRoutes');
 const app = express();
 
 // Configuración de middleware
@@ -15,7 +15,8 @@ app.use(express.static('frontend'));
 app.use('/api/usuarios', usuariosRoutes);
 // Rutas de docentes
 app.use('/api/docentes', docentesRoutes);
-
+// Rutas de estudiantes
+app.use('/api/estudiantes', estudiantesRoutes);
 // Ruta inicial
 app.get('/api/estado', (req, res) => {
     res.json({
