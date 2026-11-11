@@ -49,8 +49,25 @@
                 </p>
             </section>
         </section>
+        <p id="accesoGestionCuentas" hidden>
+    <a href="admin/cuentas.html">Administrar cuentas</a>
+</p>
     </main>
     <script src="../components/sidebar/sidebar.js"></script>
     <script src="../js/inicio.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    try {
+        const usuario = JSON.parse(
+            sessionStorage.getItem("usuario") || "null"
+        );
+
+        document.getElementById("accesoGestionCuentas").hidden =
+            !usuario?.roles?.includes("Administrador");
+    } catch {
+        document.getElementById("accesoGestionCuentas").hidden = true;
+    }
+});
+</script>
 </body>
 </html>

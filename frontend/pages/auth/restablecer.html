@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>Restablecer contraseña</title>
+    <link rel="stylesheet" href="../../css/seguridad.css">
+</head>
+<body>
+<main>
+    <h1>Nueva contraseña</h1>
+
+    <form id="formulario">
+        <label for="contrasena">Nueva contraseña</label>
+        <input
+            id="contrasena"
+            type="password"
+            minlength="12"
+            maxlength="72"
+            autocomplete="new-password"
+            required
+        >
+
+        <label for="confirmacion">Confirmar nueva contraseña</label>
+        <input
+            id="confirmacion"
+            type="password"
+            minlength="12"
+            maxlength="72"
+            autocomplete="new-password"
+            required
+        >
+
+        <button id="guardar" type="submit">Guardar contraseña</button>
+    </form>
+
+    <p id="mensaje" class="mensaje" role="status"></p>
+    <a href="../../index.html">Ir al inicio de sesión</a>
+</main>
+
+<script>
+let token = location.hash.slice(1);
+
+// Quita el token de la barra de direcciones una vez leído.
+history.replaceState(null, "", location.pathname);
+
+const formulario = document.getElementById("formulario");
+const mensaje = document.getElementById("mensaje");
+const boton = document.getElementById("guardar");
+
+if (!/^[a-f0-9]{64}$/.test(token)) {
+    formulario.hidden = true;
+    mensaje.textContent =
+        "Abre el enlace recibido por correo o solicita uno nuevo.";
+}
+
+formulario.addEventListener("submit", async evento => {
+    evento.preventDefault();
+
+    const contrasena = document.getElementById("contrasena").value;
+    const confirmacion = document.getElementById("confirmacion").value;
+
+    if (contrasena !== confirmacion) {
+        mensaje.textContent = "Las contraseñas no coinciden.";
+        return;
+    }
+
+    if (new TextEncoder().encode(contrasena).length > 72) {
+        mensaje.textContent = "La contraseña supera el máximo de 72 bytes.";
+        return;
+    }
+
+    boton.disabled = true;
+
+    try {
+        const respuesta = await fetch("/api/seguridad/restablecer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                token,
+                contrasena,
+                confirmacion
+            })
+        });
+
+        const datos = await respuesta.json();
+        mensaje.textContent = datos.mensaje;
+
+        if (respuesta.ok) {
+            token = "";
+            formulario.reset();
+            formulario.hidden = true;
+        }
+
+    } catch {
+        mensaje.textContent = "No se pudo conectar con el servidor.";
+    } finally {
+        boton.disabled = false;
+    }
+});
+</script>
+</body>
+</html>

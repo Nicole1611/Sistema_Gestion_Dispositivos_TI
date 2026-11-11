@@ -18,6 +18,7 @@ async function iniciarSesion(correo, contrasena) {
                     U.id_usuario,
                     U.contrasena_hash,
                     U.estado,
+                    U.version_sesion,
                     U.debe_cambiar_contrasena,
                     P.id_persona,
                     P.nombres,
@@ -64,15 +65,16 @@ if (!["activo", "activa"].includes(estadoCuenta)) {
         ];
 
         // Generar token
-        const token = jwt.sign(
-            {
-                id_usuario: usuario.id_usuario,
-                roles: roles,
-                debe_cambiar_contrasena: usuario.debe_cambiar_contrasena
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: "2h" }
-        );
+const token = jwt.sign(
+    {
+        id_usuario: usuario.id_usuario,
+        roles,
+        debe_cambiar_contrasena: usuario.debe_cambiar_contrasena,
+        version_sesion: usuario.version_sesion
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "2h" }
+);
 
         return {
             mensaje: "Inicio de sesión exitoso.",

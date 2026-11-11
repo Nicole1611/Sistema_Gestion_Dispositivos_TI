@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrar cuentas</title>
+    <link rel="stylesheet" href="../../css/seguridad.css">
+</head>
+<body>
+<main class="amplio">
+    <h1>Administrar cuentas</h1>
+    <p>Desactivar una cuenta impide su acceso y conserva sus registros.</p>
+
+    <a href="../inicio.html">Volver al inicio</a>
+    <p id="mensaje" class="mensaje" role="status"></p>
+
+    <div class="tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="cuentas"></tbody>
+        </table>
+    </div>
+</main>
+
+<dialog id="modal" aria-labelledby="tituloModal">
+    <h2 id="tituloModal">Confirmar desactivación</h2>
+    <p>La cuenta dejará de tener acceso al sistema.</p>
+
+    <p><strong>Nombres:</strong> <span id="nombres"></span></p>
+    <p><strong>Apellidos:</strong> <span id="apellidos"></span></p>
+    <p><strong>Correo:</strong> <span id="correo"></span></p>
+    <p><strong>Rol:</strong> <span id="roles"></span></p>
+
+    <p id="errorModal" class="mensaje" role="status"></p>
+
+    <div class="acciones">
+        <button id="confirmar" class="peligro" type="button">
+            Confirmar
+        </button>
+        <button id="cancelar" class="secundario" type="button">
+            Cancelar
+        </button>
+    </div>
+</dialog>
+
+<script>
+const token = sessionStorage.getItem("token");
+const tabla = document.getElementById("cuentas");
+const mensaje = document.getElementById("mensaje");
+const modal = document.getElementById("modal");
+const confirmar = document.getElementById("confirmar");
+const cancelar = document.getElementById("cancelar");
+const errorModal = document.getElementById("errorModal");
+
+let seleccionada = null;
+let procesando = false;
+
+async function solicitar(ruta, opciones = {}) {
+    const respuesta = await fetch("/api/seguridad" + ruta, {
+        ...opciones,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(datos.mensaje || "No se pudo realizar la operación.");
+    }
+
+    return datos;
+}
+
+function celda(texto) {
+    const td = document.createElement("td");
+    td.textContent = texto;
+    return td;
+}
+
+async function cargar() {
+    const resultado = await solicitar("/cuentas");
+    tabla.replaceChildren();
+
+    for (const cuenta of resultado.datos) {
+        const fila = document.createElement("tr");
+
+        fila.append(
+            celda(cuenta.nombres + " " + cuenta.apellidos),
+            celda(cuenta.correo),
+            celda(cuenta.roles.join(", ") || "Sin rol"),
+            celda(cuenta.estado)
+        );
+
+        const acciones = document.createElement("td");
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.textContent = "Desactivar";
+        boton.className = "peligro";
+
+        boton.addEventListener("click", () => {
+            if (cuenta.estado.trim().toLowerCase() === "inactivo") {
+                mensaje.textContent = "Esta cuenta ya se encuentra inactiva";
+                return;
+            }
+
+            seleccionada = cuenta;
+
+            document.getElementById("nombres").textContent = cuenta.nombres;
+            document.getElementById("apellidos").textContent = cuenta.apellidos;
+            document.getElementById("correo").textContent = cuenta.correo;
+            document.getElementById("roles").textContent =
+                cuenta.roles.join(", ") || "Sin rol";
+
+            errorModal.textContent = "";
+            modal.showModal();
+        });
+
+        acciones.appendChild(boton);
+        fila.appendChild(acciones);
+        tabla.appendChild(fila);
+    }
+}
+
+cancelar.addEventListener("click", () => {
+    if (!procesando) modal.close();
+});
+
+modal.addEventListener("cancel", evento => {
+    if (procesando) evento.preventDefault();
+});
+
+confirmar.addEventListener("click", async () => {
+    if (!seleccionada || procesando) return;
+
+    procesando = true;
+    confirmar.disabled = true;
+    cancelar.disabled = true;
+    errorModal.textContent = "";
+
+    try {
+        const resultado = await solicitar(
+            "/cuentas/" + seleccionada.id_usuario + "/desactivar",
+            {
+                method: "PATCH",
+                body: JSON.stringify({ confirmar: true })
+            }
+        );
+
+        modal.close();
+        mensaje.textContent = resultado.mensaje;
+
+        try {
+            await cargar();
+        } catch {
+            mensaje.textContent +=
+                ". No se pudo actualizar la lista; recarga la página.";
+        }
+
+    } catch (error) {
+        errorModal.textContent = error.message;
+    } finally {
+        procesando = false;
+        confirmar.disabled = false;
+        cancelar.disabled = false;
+    }
+});
+
+if (!token) {
+    location.replace("../../index.html");
+} else {
+    cargar().catch(error => {
+        mensaje.textContent = error.message;
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recuperar contraseña</title>
+    <link rel="stylesheet" href="../../css/seguridad.css">
+</head>
+<body>
+<main>
+    <h1>Recuperar contraseña</h1>
+    <p>Ingresa tu correo institucional para solicitar un enlace.</p>
+
+    <form id="formulario">
+        <label for="correo">Correo institucional</label>
+        <input
+            id="correo"
+            type="email"
+            maxlength="150"
+            autocomplete="email"
+            placeholder="usuario@espoch.edu.ec"
+            required
+        >
+        <button id="enviar" type="submit">Enviar enlace</button>
+    </form>
+
+    <p id="mensaje" class="mensaje" role="status"></p>
+    <a href="../../index.html">Volver al inicio de sesión</a>
+</main>
+
+<script>
+const formulario = document.getElementById("formulario");
+const mensaje = document.getElementById("mensaje");
+const boton = document.getElementById("enviar");
+
+formulario.addEventListener("submit", async evento => {
+    evento.preventDefault();
+    boton.disabled = true;
+    mensaje.textContent = "";
+
+    try {
+        const respuesta = await fetch("/api/seguridad/recuperar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                correo: document.getElementById("correo").value.trim()
+            })
+        });
+
+        const datos = await respuesta.json();
+        mensaje.textContent = datos.mensaje;
+
+    } catch {
+        mensaje.textContent = "No se pudo conectar con el servidor.";
+    } finally {
+        boton.disabled = false;
+    }
+});
+</script>
+</body>
+</html>

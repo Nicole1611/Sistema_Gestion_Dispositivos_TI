@@ -25,6 +25,7 @@ const PORT = Number(process.env.PORT || 3000);
 
 app.use(cors());
 app.use(express.json());
+const seguridadRoutes = require("./routers/seguridad.routes");
 
 app.get("/", (req, res) => {
     res.json({
@@ -89,3 +90,10 @@ async function iniciarServidor() {
 }
 
 iniciarServidor();
+
+app.use(
+    "/frontend",
+    express.static(path.join(__dirname, "..", "frontend"))
+);
+
+app.use("/api/seguridad", seguridadRoutes);

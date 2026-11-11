@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrar cuentas</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f6fa;
+            color: #24364a;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 28px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        a { color: #176b55; }
+
+        .tabla { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #dce4ec;
+            text-align: left;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 6px;
+            background: #a52626;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .secundario { background: #546779; }
+
+        .mensaje {
+            padding: 12px;
+            background: #edf3f7;
+            border-radius: 6px;
+        }
+
+        .mensaje:empty { display: none; }
+
+        dialog {
+            width: min(500px, 92vw);
+            padding: 24px;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        dialog::backdrop {
+            background: rgb(0 0 0 / 45%);
+        }
+
+        .acciones {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    <h1>Administrar cuentas</h1>
+    <p>Desactivar una cuenta bloquea su acceso y conserva sus registros.</p>
+
+    <a href="../inicio.html">Volver al inicio</a>
+
+    <p id="mensaje" class="mensaje" role="status"></p>
+
+    <div class="tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="cuentas"></tbody>
+        </table>
+    </div>
+</main>
+
+<dialog id="modal" aria-labelledby="tituloModal">
+    <h2 id="tituloModal">Confirmar desactivación</h2>
+    <p>La cuenta dejará de tener acceso al sistema.</p>
+
+    <p><strong>Nombres:</strong> <span id="nombres"></span></p>
+    <p><strong>Apellidos:</strong> <span id="apellidos"></span></p>
+    <p><strong>Correo:</strong> <span id="correo"></span></p>
+    <p><strong>Rol:</strong> <span id="roles"></span></p>
+
+    <p id="errorModal" class="mensaje" role="status"></p>
+
+    <div class="acciones">
+        <button id="confirmar" type="button">Confirmar</button>
+        <button id="cancelar" class="secundario" type="button">
+            Cancelar
+        </button>
+    </div>
+</dialog>
+
+<script>
+const token = sessionStorage.getItem("token");
+const tabla = document.getElementById("cuentas");
+const mensaje = document.getElementById("mensaje");
+const modal = document.getElementById("modal");
+const confirmar = document.getElementById("confirmar");
+const cancelar = document.getElementById("cancelar");
+const errorModal = document.getElementById("errorModal");
+
+let seleccionada = null;
+let procesando = false;
+
+async function solicitar(ruta, opciones = {}) {
+    const respuesta = await fetch("/api/seguridad" + ruta, {
+        ...opciones,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    const tipo = respuesta.headers.get("content-type") || "";
+
+    if (!tipo.includes("application/json")) {
+        throw new Error(
+            "El servidor no reconoce la ruta de seguridad. " +
+            "Revisa seguridad.routes.js y su conexión en server.js."
+        );
+    }
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(
+            datos.mensaje || "No se pudo realizar la operación."
+        );
+    }
+
+    return datos;
+}
+
+function celda(texto) {
+    const td = document.createElement("td");
+    td.textContent = texto;
+    return td;
+}
+
+async function cargar() {
+    const resultado = await solicitar("/cuentas");
+    tabla.replaceChildren();
+
+    for (const cuenta of resultado.datos) {
+        const fila = document.createElement("tr");
+
+        fila.append(
+            celda(cuenta.nombres + " " + cuenta.apellidos),
+            celda(cuenta.correo),
+            celda(cuenta.roles.join(", ") || "Sin rol"),
+            celda(cuenta.estado)
+        );
+
+        const acciones = document.createElement("td");
+        const boton = document.createElement("button");
+
+        boton.type = "button";
+        boton.textContent = "Desactivar";
+
+        boton.addEventListener("click", () => {
+            if (cuenta.estado.trim().toLowerCase() === "inactivo") {
+                mensaje.textContent =
+                    "Esta cuenta ya se encuentra inactiva";
+                return;
+            }
+
+            seleccionada = cuenta;
+
+            document.getElementById("nombres").textContent =
+                cuenta.nombres;
+            document.getElementById("apellidos").textContent =
+                cuenta.apellidos;
+            document.getElementById("correo").textContent =
+                cuenta.correo;
+            document.getElementById("roles").textContent =
+                cuenta.roles.join(", ") || "Sin rol";
+
+            errorModal.textContent = "";
+            modal.showModal();
+        });
+
+        acciones.appendChild(boton);
+        fila.appendChild(acciones);
+        tabla.appendChild(fila);
+    }
+}
+
+cancelar.addEventListener("click", () => {
+    if (!procesando) modal.close();
+});
+
+modal.addEventListener("cancel", evento => {
+    if (procesando) evento.preventDefault();
+});
+
+confirmar.addEventListener("click", async () => {
+    if (!seleccionada || procesando) return;
+
+    procesando = true;
+    confirmar.disabled = true;
+    cancelar.disabled = true;
+    errorModal.textContent = "";
+
+    try {
+        const resultado = await solicitar(
+            "/cuentas/" + seleccionada.id_usuario + "/desactivar",
+            {
+                method: "PATCH",
+                body: JSON.stringify({ confirmar: true })
+            }
+        );
+
+        modal.close();
+        mensaje.textContent = resultado.mensaje;
+
+        try {
+            await cargar();
+        } catch {
+            mensaje.textContent +=
+                ". No se pudo actualizar la lista; recarga la página.";
+        }
+
+    } catch (error) {
+        errorModal.textContent = error.message;
+    } finally {
+        procesando = false;
+        confirmar.disabled = false;
+        cancelar.disabled = false;
+    }
+});
+
+if (!token) {
+    location.replace("../../index.html");
+} else {
+    cargar().catch(error => {
+        mensaje.textContent = error.message;
+    });
+}
+</script>
+</body>
+</html>
