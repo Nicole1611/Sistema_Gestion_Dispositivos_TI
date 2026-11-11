@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar contraseña | Gestión de Dispositivos TI</title>
+
+    <link rel="stylesheet" href="../../css/global/global.css">
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/forms.css">
+    <link rel="stylesheet" href="../../css/pages/cambiar-contrasena.css">
+</head>
+<body>
+
+    <main class="contenedor-cambio">
+
+        <section class="tarjeta-cambio">
+            <h1>Cambiar contraseña</h1>
+
+            <p>
+                Por seguridad, debes cambiar tu contraseña temporal
+                antes de continuar.
+            </p>
+
+            <form id="formCambiarContrasena">
+
+                <div class="form-group">
+                    <label class="form-label" for="contrasenaActual">
+                        Contraseña actual
+                    </label>
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="contrasenaActual"
+                        maxlength="12"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="contrasenaNueva">
+                        Nueva contraseña
+                    </label>
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="contrasenaNueva"
+                        maxlength="12"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmarContrasena">
+                        Confirmar nueva contraseña
+                    </label>
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="confirmarContrasena"
+                        maxlength="12"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Cambiar contraseña
+                </button>
+
+                <p id="mensaje"></p>
+
+            </form>
+        </section>
+
+    </main>
+
+    <script src="../../js/cambiar-contrasena.js"></script>
+
+</body>
+</html>

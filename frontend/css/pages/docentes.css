@@ -1,0 +1,190 @@
+
+/* Contenido principal */
+.contenido-principal {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+/* Encabezado de página */
+.encabezado-pagina {
+    margin-bottom: 30px;
+}
+
+.encabezado-pagina h1 {
+    font-size: 28px;
+    color: #26364A;
+    margin-bottom: 8px;
+}
+
+.encabezado-pagina p {
+    color: #64748B;
+    font-size: 14px;
+}
+
+/* Sección de docentes */
+.seccion-docentes {
+    background-color: #FFFFFF;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Barra de acciones */
+.barra-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.barra-acciones h2 {
+    color: #26364A;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.barra-acciones p {
+    color: #64748B;
+    font-size: 13px;
+}
+
+/* Contenedor de tabla */
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabla de docentes */
+.seccion-docentes table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.seccion-docentes th,
+.seccion-docentes td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #E2E8F0;
+    white-space: nowrap;
+}
+
+.seccion-docentes th {
+    background-color: #F3F6FA;
+    color: #26364A;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.seccion-docentes td {
+    color: #475569;
+    font-size: 14px;
+}
+
+.seccion-docentes tbody tr:hover {
+    background-color: #F8FAFC;
+}
+
+/* Formulario de docentes */
+.formulario-docente {
+    background-color: #FFFFFF;
+    padding: 24px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.formulario-docente[hidden] {
+    display: none;
+}
+
+/* Encabezado del formulario */
+.encabezado-formulario {
+    margin-bottom: 24px;
+}
+
+.encabezado-formulario h2 {
+    color: #26364A;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.encabezado-formulario p {
+    color: #64748B;
+    font-size: 13px;
+}
+
+/* Campos del formulario */
+.formulario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.formulario-grid .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formulario-grid label {
+    color: #26364A;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formulario-grid input,
+.formulario-grid select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    background-color: #FFFFFF;
+}
+
+.formulario-grid input:focus,
+.formulario-grid select:focus {
+    border-color: #176B52;
+}
+
+/* Botones del formulario */
+.acciones-formulario {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* Diseño adaptable */
+@media (max-width: 768px) {
+
+    .contenido-principal {
+        margin-left: 0;
+        padding: 85px 16px 20px;
+    }
+
+    .barra-acciones {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .formulario-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-docentes,
+    .formulario-docente {
+        padding: 18px;
+    }
+
+    .acciones-formulario {
+        flex-direction: column-reverse;
+    }
+
+    .acciones-formulario button {
+        width: 100%;
+    }
+}

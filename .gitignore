@@ -1,7 +1,8 @@
 # Dependencias de Node.js
 node_modules/
 
-# Variables de entorno y credenciales
+
+# Variables de entorno
 .env
 .env.*
 
@@ -9,5 +10,7 @@ node_modules/
 *.log
 
 # Archivos temporales
+temp/
+
 .DS_Store
 Thumbs.db

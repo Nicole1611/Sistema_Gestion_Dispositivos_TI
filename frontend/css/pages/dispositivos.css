@@ -1,0 +1,72 @@
+/* Contenido principal */
+.contenido-principal {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+/* Encabezado de página */
+.encabezado-pagina {
+    margin-bottom: 25px;
+}
+
+.encabezado-pagina h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.encabezado-pagina p {
+    color: #64748B;
+}
+
+.seccion-dispositivos {
+    background-color: #FFFFFF;
+    padding: 24px;
+    border: 1px solid #DCE3EA;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.seccion-dispositivos .barra-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.encabezado-formulario {
+    margin-bottom: 25px;
+}
+
+.encabezado-formulario h2 {
+    color: #26364A;
+    margin-bottom: 6px;
+}
+
+.encabezado-formulario p {
+    color: #64748B;
+    font-size: 14px;
+}
+
+.formulario-dispositivo .formulario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+/* Diseño adaptable */
+
+@media (max-width: 768px) {
+    .contenido-principal {
+        margin-left: 0;
+        padding: 85px 16px 20px;
+        }
+
+    .seccion-dispositivos .barra-acciones {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .formulario-dispositivo .formulario-grid {
+        grid-template-columns: 1fr;
+    }
+}

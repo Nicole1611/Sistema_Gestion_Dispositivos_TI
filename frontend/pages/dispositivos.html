@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos | Gestión de Dispositivos TI</title>
+
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/table.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/dispositivos.css">
+</head>
+
+<body>
+
+    <div id="contenedorSidebar"></div>
+
+    <main class="contenido-principal">
+
+        <header class="encabezado-pagina">
+            <h1>Gestión de dispositivos</h1>
+            <p>Administra los dispositivos tecnológicos de la carrera.</p>
+        </header>
+
+        <!-- Listado de dispositivos -->
+        <section class="seccion-dispositivos">
+
+            <div class="barra-acciones">
+                <h2>Listado de dispositivos</h2>
+                <button type="button" id="btnRegistrar" class="btn-primary">
+                    Registrar dispositivo
+                </button>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaDispositivos"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- Formulario de registro -->
+        <section id="formularioDispositivo"
+            class="seccion-dispositivos formulario-dispositivo"
+            hidden>
+
+            <div class="encabezado-formulario">
+                <div>
+                    <h2>Registrar dispositivo</h2>
+                    <p>Ingresa los datos del nuevo dispositivo tecnológico.</p>
+                </div>
+            </div>
+
+            <form id="formDispositivo" class="formulario">
+
+                <div class="formulario-grid">
+
+                    <div class="form-group">
+                        <label for="codigo" class="form-label">Código *</label>
+                        <input type="text" id="codigo" name="codigo"
+                            class="form-input" maxlength="30"
+                            placeholder="Ej. DIS-001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre *</label>
+                        <input type="text" id="nombre" name="nombre"
+                            class="form-input" maxlength="100"
+                            placeholder="Ej. Laptop para docentes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_tipo" class="form-label">Tipo *</label>
+                        <select id="id_tipo" name="id_tipo"
+                            class="form-select" required>
+                            <option value="">Seleccione el tipo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_marca" class="form-label">Marca *</label>
+                        <select id="id_marca" name="id_marca"
+                            class="form-select" required>
+                            <option value="">Seleccione la marca</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modelo" class="form-label">Modelo</label>
+                        <input type="text" id="modelo" name="modelo"
+                            class="form-input" maxlength="80"
+                            placeholder="Ingrese el modelo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero_serie" class="form-label">Número de serie</label>
+                        <input type="text" id="numero_serie" name="numero_serie"
+                            class="form-input" maxlength="80"
+                            placeholder="Ingrese el número de serie">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_estado" class="form-label">Estado *</label>
+                        <select id="id_estado" name="id_estado"
+                            class="form-select" required>
+                            <option value="">Seleccione el estado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" id="descripcion" name="descripcion"
+                            class="form-input" maxlength="250"
+                            placeholder="Detalles adicionales">
+                    </div>
+
+                </div>
+
+                <div class="formulario-acciones">
+                    <button type="button" id="btnCancelar"
+                        class="btn-secondary">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn-primary">
+                        Guardar dispositivo
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/dispositivos.js"></script>
+
+</body>
+</html>

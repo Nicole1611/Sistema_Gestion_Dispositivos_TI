@@ -1,0 +1,78 @@
+
+/* Contenido principal */
+.contenido-principal {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+/* Encabezado de página */
+.encabezado-pagina {
+    margin-bottom: 25px;
+}
+
+.encabezado-pagina h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.encabezado-pagina p {
+    color: #64748B;
+}
+
+/* Sección de estudiantes */
+.seccion-estudiantes {
+    background-color: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #DCE3EA;
+}
+
+/* Barra de acciones */
+.barra-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* Formulario de estudiantes */
+.formulario-estudiante {
+    margin-top: 20px;
+}
+
+/* Encabezado del formulario */
+.encabezado-formulario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.encabezado-formulario h2 {
+    margin-bottom: 10px;
+}
+
+.encabezado-formulario p {
+    color: #64748B;
+    margin-top: 0;
+}
+
+/* Separación entre encabezado y campos */
+.formulario-grid {
+    margin-top: 10px;
+}
+
+/* Diseño adaptable */
+@media (max-width: 768px) {
+    .contenido-principal {
+        margin-left: 0;
+        padding: 16px;
+        padding: 85px 16px 20px;
+        }
+
+    .barra-acciones {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

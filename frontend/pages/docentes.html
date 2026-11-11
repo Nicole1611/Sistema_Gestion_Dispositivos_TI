@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docentes | Gestión de Dispositivos TI</title>
+
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/table.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/docentes.css">
+</head>
+<body>
+
+    <div id="contenedorSidebar"></div>
+
+    <main class="contenido-principal">
+
+        <header class="encabezado-pagina">
+            <h1>Gestión de docentes</h1>
+            <p>Administra los docentes registrados en el sistema.</p>
+        </header>
+
+        <!-- Listado de docentes -->
+        <section class="seccion-docentes">
+
+            <div class="barra-acciones">
+                <h2>Listado de docentes</h2>
+
+                <button type="button" id="btnRegistrar" class="btn-primary">
+                    Registrar docente
+                </button>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cédula</th>
+                            <th>Docente</th>
+                            <th>Correo institucional</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaDocentes"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- Formulario de registro -->
+        <section id="formularioDocente"
+                 class="seccion-docentes formulario-docente"
+                 hidden>
+
+            <div class="encabezado-formulario">
+                <div>
+                    <h2>Registrar docente</h2>
+                    <p>Ingresa los datos del nuevo docente.</p>
+                </div>
+            </div>
+
+            <form id="formDocente" class="formulario">
+
+                <div class="formulario-grid">
+
+                    <div class="form-group">
+                        <label for="cedula" class="form-label">Cédula *</label>
+                        <input
+                            type="text"
+                            id="cedula"
+                            name="cedula"
+                            class="form-input"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="Ingrese la cédula"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoDocente" class="form-label">
+                            Código de docente *
+                        </label>
+                        <input
+                            type="text"
+                            id="codigoDocente"
+                            name="codigoDocente"
+                            class="form-input"
+                            maxlength="20"
+                            placeholder="Ingrese el código"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombres" class="form-label">Nombres *</label>
+                        <input
+                            type="text"
+                            id="nombres"
+                            name="nombres"
+                            class="form-input"
+                            maxlength="100"
+                            placeholder="Ingrese los nombres"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidos" class="form-label">Apellidos *</label>
+                        <input
+                            type="text"
+                            id="apellidos"
+                            name="apellidos"
+                            class="form-input"
+                            maxlength="100"
+                            placeholder="Ingrese los apellidos"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo" class="form-label">
+                            Correo institucional *
+                        </label>
+                        <input
+                            type="email"
+                            id="correo"
+                            name="correo"
+                            class="form-input"
+                            maxlength="150"
+                            placeholder="correo@espoch.edu.ec"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            class="form-input"
+                            maxlength="15"
+                            placeholder="Ingrese el teléfono">
+                    </div>
+
+                </div>
+
+                <div class="formulario-acciones">
+                    <button type="button" id="btnCancelar" class="btn-secondary">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn-primary">
+                        Guardar docente
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/docentes.js"></script>
+
+</body>
+</html>

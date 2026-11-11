@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes | Gestión de Dispositivos TI</title>
+    <link rel="stylesheet" href="../css/global/global.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/forms.css">
+    <link rel="stylesheet" href="../css/components/table.css">
+    <link rel="stylesheet" href="../components/sidebar/sidebar.css">
+    <link rel="stylesheet" href="../css/pages/estudiantes.css">
+</head>
+<body>
+    <div id="contenedorSidebar"></div>
+    <main class="contenido-principal">
+        <header class="encabezado-pagina">
+            <h1>Gestión de estudiantes</h1>
+            <p>Administra los estudiantes registrados en el sistema</p>
+        </header>
+        <section class="seccion-estudiantes">
+            <div class="barra-acciones">
+                <h2>Listado de estudiantes</h2>
+                <button type="button" id="btnRegistrar" class="btn-primary">Registrar estudiante</button>
+            </div>
+            <div class="tabla-contenedor">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cédula</th>
+                            <th>Estudiante</th>
+                            <th>Correo institucional</th>
+                            <th>PAO</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEstudiantes">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="formularioEstudiante" class="seccion-estudiantes formulario-estudiante" hidden>
+            <div class="encabezado-formulario">
+                <div>
+                    <h2>Registrar estudiante</h2>
+                    <p>Ingresa los datos del nuevo estudiante.</p>
+                </div>
+            </div>
+        <form id="formEstudiante" class="formulario">
+            <div class="formulario-grid">
+                <div class="form-group">
+                    <label for="cedula" class="form-label">Cédula *</label>
+                    <input type="text" id="cedula" name="cedula" class="form-input" maxlength="10" pattern="[0-9]{10}" placeholder="Ingrese la cédula" required>
+                </div>
+                <div class="form-group">
+                    <label for="codigoEstudiante" class="form-label">Código de estudiante *</label>
+                    <input type="text" id="codigoEstudiante" name="codigoEstudiante" class="form-input" maxlength="4" pattern="[0-9]{4}" placeholder="Ej. 0123" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombres" class="form-label">Nombres *</label>
+                    <input type="text" id="nombres" name="nombres" class="form-input" maxlength="100" placeholder="Ingrese los nombres" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos" class="form-label">Apellidos *</label>
+                    <input type="text" id="apellidos" name="apellidos" class="form-input" maxlength="100" placeholder="Ingrese los apellidos" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo" class="form-label">Correo institucional *</label>
+                    <input type="email" id="correo" name="correo" class="form-input" maxlength="150" placeholder="correo@espoch.edu.ec" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" class="form-input" maxlength="15" placeholder="Ingrese el teléfono">
+                </div>
+                <div class="form-group">
+                    <label for="carrera" class="form-label">Carrera *</label>
+                    <input type="text" id="carrera" name="carrera" class="form-input" value="Tecnologías de la Información" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nivel" class="form-label">Nivel (PAO) *</label>
+                    <select id="nivel" name="nivel" class="form-select" required>
+                        <option value="">Seleccione el PAO</option>
+                        <option value="0">PAO 0 - Nivelación</option>
+                        <option value="1">PAO 1</option>
+                        <option value="2">PAO 2</option>
+                        <option value="3">PAO 3</option>
+                        <option value="4">PAO 4</option>
+                        <option value="5">PAO 5</option>
+                        <option value="6">PAO 6</option>
+                        <option value="7">PAO 7</option>
+                        <option value="8">PAO 8</option>
+                        <option value="9">PAO 9</option>
+                    </select>
+                </div>
+            </div>
+            <div class="formulario-acciones">
+                <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar estudiante</button>
+            </div>
+        </form>
+        </section>
+    </main>
+    <script src="../components/sidebar/sidebar.js"></script>
+    <script src="../js/estudiantes.js"></script>
+</body>
+</html>
